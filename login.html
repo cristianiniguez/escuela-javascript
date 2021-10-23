@@ -28,13 +28,18 @@
 
       .login {
         height: 100vh;
-        padding: 16px;
+        padding: 0 16px;
         display: grid;
         place-items: center;
+        align-items: stretch;
       }
 
       .container {
         max-width: 300px;
+        padding: 16px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .logo {
@@ -101,6 +106,13 @@
       }
 
       @media (max-width: 640px) {
+        .container-center {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
         .logo {
           display: block;
         }
@@ -110,31 +122,35 @@
   <body>
     <main class="login">
       <div class="container">
-        <div class="logo">
-          <img src="/assets/logos/logo_yard_sale.svg" alt="Logo" />
+        <div class="container-center">
+          <div class="logo">
+            <img src="/assets/logos/logo_yard_sale.svg" alt="Logo" />
+          </div>
+
+          <form class="form">
+            <div class="form-group">
+              <label for="email" class="label">Email address</label>
+              <input type="email" id="email" placeholder="platzi@example.com" class="input" />
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="label">Password</label>
+              <input type="password" id="password" placeholder="*********" class="input" />
+            </div>
+
+            <div class="form-group">
+              <input type="submit" value="Log in" class="primary-button login-button" />
+            </div>
+
+            <p>
+              <a href="/">Forgot my password</a>
+            </p>
+          </form>
         </div>
 
-        <form class="form">
-          <div class="form-group">
-            <label for="email" class="label">Email address</label>
-            <input type="email" id="email" placeholder="platzi@example.com" class="input" />
-          </div>
-
-          <div class="form-group">
-            <label for="password" class="label">Password</label>
-            <input type="password" id="password" placeholder="*********" class="input" />
-          </div>
-
-          <div class="form-group">
-            <input type="submit" value="Log in" class="primary-button login-button" />
-          </div>
-
-          <p>
-            <a href="/">Forgot my password</a>
-          </p>
-        </form>
-
-        <button class="secondary-button signup-button">Sign up</button>
+        <div class="container-end">
+          <button class="secondary-button signup-button">Sign up</button>
+        </div>
       </div>
     </main>
   </body>
