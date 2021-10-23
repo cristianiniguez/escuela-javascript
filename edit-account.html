@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Platzi YardSale - My Account</title>
+    <title>Platzi YardSale - Edit Account</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -41,7 +41,7 @@
       }
 
       .container {
-        width: 300px;
+        max-width: 300px;
         padding: 16px 0;
         display: flex;
         flex-direction: column;
@@ -54,7 +54,7 @@
       }
 
       .form-group {
-        margin-bottom: 32px;
+        margin-bottom: 12px;
         display: flex;
         flex-direction: column;
       }
@@ -65,10 +65,13 @@
         margin-bottom: 4px;
       }
 
-      .value {
+      .input {
         font-size: var(--md);
-        color: var(--dark-gray);
-        margin: 8px 0 0;
+        background-color: var(--text-input-field);
+        height: 32px;
+        border: none;
+        border-radius: 8px;
+        padding: 6px;
       }
 
       .primary-button {
@@ -114,22 +117,22 @@
           <div>
             <div class="form-group">
               <label for="name" class="label">Name</label>
-              <p class="value">Cristian</p>
+              <input type="text" id="name" placeholder="Cristian" class="input" />
             </div>
 
             <div class="form-group">
               <label for="email" class="label">Email address</label>
-              <p class="value">platzi@example.com</p>
+              <input type="email" id="email" placeholder="platzi@example.com" class="input" />
             </div>
 
             <div class="form-group">
               <label for="password" class="label">Password</label>
-              <p class="value">*********</p>
+              <input type="password" id="password" placeholder="*********" class="input" />
             </div>
           </div>
 
           <div class="form-group">
-            <input type="submit" value="Edit" class="secondary-button login-button" />
+            <input type="submit" value="Create" class="primary-button login-button" />
           </div>
         </form>
       </div>
