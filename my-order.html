@@ -32,40 +32,75 @@
         background-color: var(--light-gray);
       }
 
-      .menu {
-        padding: 24px;
+      .my-order {
+        height: 100vh;
+        display: grid;
+        place-items: center;
       }
-      .menu ul {
-        list-style: none;
-        margin: 0;
-        margin-top: 24px;
-        padding: 0;
+
+      .title {
+        font-size: var(--lg);
+        margin-bottom: 40px;
       }
-      .menu ul:first-child {
-        border-bottom: 1px solid var(--dark-gray);
+
+      .container {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        width: 300px;
       }
-      .menu ul li {
+
+      .order {
+        background-color: var(--text-input-field);
         margin-bottom: 24px;
+        border-radius: 8px;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 16px;
       }
-      .menu a {
-        text-decoration: none;
-        color: var(--black);
+      .order p:nth-child(1) {
+        font-size: var(--md);
         font-weight: bold;
       }
-      .menu .email {
+      .order div:nth-child(1) p:nth-child(2) {
         font-size: var(--sm);
-        font-weight: normal;
+        color: var(--dark-gray);
       }
-      .menu .sign-out {
-        font-size: var(--sm);
-        color: var(--dark-blue);
+      .order div:nth-child(2) p {
+        text-align: end;
+      }
+
+      .product {
+        margin-bottom: 24px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 16px;
+      }
+      .product p:nth-child(2) {
+        color: var(--dark-gray);
+      }
+      .product p:nth-child(3) {
+        font-size: var(--md);
+        font-weight: bold;
+      }
+      .product figure {
+        margin: 0;
+      }
+      .product figure img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 20px;
       }
     </style>
   </head>
   <body>
     <section class="my-order">
       <div class="container">
-        <div class="content">
+        <h1 class="title">My order</h1>
+        <div class="order">
           <div>
             <p>04.25.21</p>
             <p>6 articles</p>
@@ -74,28 +109,28 @@
             <p>$560.00</p>
           </div>
         </div>
-      </div>
-      <div class="cart">
-        <div class="product">
-          <figure>
-            <img src="/assets/images/bike.jpg" alt="Bike" />
-          </figure>
-          <p>Bike</p>
-          <p>$30.00</p>
-        </div>
-        <div class="product">
-          <figure>
-            <img src="/assets/images/bike.jpg" alt="Bike" />
-          </figure>
-          <p>Bike</p>
-          <p>$30.00</p>
-        </div>
-        <div class="product">
-          <figure>
-            <img src="/assets/images/bike.jpg" alt="Bike" />
-          </figure>
-          <p>Bike</p>
-          <p>$30.00</p>
+        <div class="cart">
+          <div class="product">
+            <figure>
+              <img src="/assets/images/bike.jpg" alt="Bike" />
+            </figure>
+            <p>Bike</p>
+            <p>$30.00</p>
+          </div>
+          <div class="product">
+            <figure>
+              <img src="/assets/images/bike.jpg" alt="Bike" />
+            </figure>
+            <p>Bike</p>
+            <p>$30.00</p>
+          </div>
+          <div class="product">
+            <figure>
+              <img src="/assets/images/bike.jpg" alt="Bike" />
+            </figure>
+            <p>Bike</p>
+            <p>$30.00</p>
+          </div>
         </div>
       </div>
     </section>
