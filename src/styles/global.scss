@@ -1,7 +1,5 @@
-$base-color: #ff0000;
-$color: rgba(black, 0.5);
-
 body {
-  background-color: $base-color;
-  color: $color;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--light-gray);
 }
