@@ -4,15 +4,16 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-/** @type {import('webpack').Configuration} */
 module.exports = (_, { mode }) => {
   const devMode = mode !== 'production';
 
-  return {
+  /** @type {import('webpack').Configuration} */
+  const config = {
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
+      publicPath: '/',
     },
     mode,
     resolve: {
@@ -48,6 +49,9 @@ module.exports = (_, { mode }) => {
     ],
     devServer: {
       port: 3000,
+      historyApiFallback: true,
     },
   };
+
+  return config;
 };
