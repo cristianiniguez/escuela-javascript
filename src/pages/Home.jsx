@@ -1,9 +1,14 @@
 import React from 'react';
 
-import Header from '../components/Header';
+import Layout from '../components/layout/Layout';
+import Products from '../components/sections/Products';
 
 const Home = () => {
-  return <Header />;
+  return (
+    <Layout>
+      <Products />
+    </Layout>
+  );
 };
 
 export default Home;

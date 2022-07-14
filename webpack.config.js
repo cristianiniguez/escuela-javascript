@@ -18,6 +18,7 @@ module.exports = (_, { mode }) => {
     mode,
     resolve: {
       extensions: ['.js', '.jsx'],
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
     module: {
       rules: [
