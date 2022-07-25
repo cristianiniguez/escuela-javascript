@@ -35,7 +35,15 @@ module.exports = (_, { mode }) => {
           },
         },
         {
-          test: /\.s?[ac]ss$/,
+          test: /\.css/,
+          use: [
+            devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+            'postcss-loader',
+          ],
+        },
+        {
+          test: /\.scss$/,
           use: [
             devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
             'css-loader',
