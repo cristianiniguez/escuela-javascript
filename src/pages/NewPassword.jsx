@@ -1,15 +1,16 @@
 import React from 'react';
 
-import Layout from 'components/layout/Layout';
-import 'styles/NewPassword.scss';
+import Layout from '@components/layout/Layout';
+import Logo from '@assets/logos/logo_yard_sale.svg';
+import '@styles/NewPassword.scss';
 
 const NewPassword = () => {
   return (
     <Layout hideHeader>
-      <main className='new-password'>
+      <section className='new-password'>
         <div className='container'>
-          <div className='logo'>
-            <img src='/assets/logos/logo_yard_sale.svg' alt='Logo' />
+          <div className='new-password-logo'>
+            <img src={Logo} alt='Logo' />
           </div>
           <h1 className='title'>Create a new password</h1>
           <p className='subtitle'>Enter a new password for your account</p>
@@ -31,7 +32,7 @@ const NewPassword = () => {
             </div>
           </form>
         </div>
-      </main>
+      </section>
     </Layout>
   );
 };

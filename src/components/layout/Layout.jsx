@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from './Header';
+
+import Header from './Navbar';
+import '@styles/components/layout/Layout.scss';
 
 const Layout = ({ children, hideHeader = false }) => {
   return (

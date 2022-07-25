@@ -22,14 +22,17 @@
   align-items: center;
   gap: 16px;
 }
-.order p:nth-child(1) {
+.order-date {
   font-size: var(--md);
   font-weight: bold;
 }
-.order div:nth-child(1) p:nth-child(2) {
+.order-qty {
   font-size: var(--sm);
   color: var(--dark-gray);
 }
-.order div:nth-child(2) p {
+.order-amount {
   text-align: end;
+}
+.order-arrow {
+  color: var(--dark-gray);
 }

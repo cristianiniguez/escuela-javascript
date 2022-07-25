@@ -1,12 +1,16 @@
 import React from 'react';
-import '../../styles/Header.scss';
+import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 
-const Header = () => {
+import Logo from '@assets/logos/logo_yard_sale.svg';
+import '@styles/components/layout/Navbar.scss';
+import ShoppingCartIcon from '@components/ShoppingCartIcon';
+
+const Navbar = () => {
   return (
-    <nav>
-      <img src='/assets/icons/icon_menu.svg' alt='Menu' className='menu' />
+    <nav className='navbar'>
+      <HiOutlineMenuAlt1 className='navbar-menu' size={32} />
       <div className='navbar-left'>
-        <img src='/assets/logos/logo_yard_sale.svg' alt='Logo YardSale' className='logo' />
+        <img src={Logo} alt='Logo YardSale' className='navbar-logo' />
         <ul>
           <li>
             <a href='/'>All</a>
@@ -30,13 +34,10 @@ const Header = () => {
       </div>
       <div className='navbar-right'>
         <p className='navbar-email'>platzi@example.com</p>
-        <div className='navbar-shopping-cart'>
-          <img src='/assets/icons/icon_shopping_cart.svg' alt='Shopping Cart' />
-          <div>2</div>
-        </div>
+        <ShoppingCartIcon point={2} />
       </div>
     </nav>
   );
 };
 
-export default Header;
+export default Navbar;

@@ -1,15 +1,22 @@
 .email-sent {
-  min-height: 100vh;
-  padding: 16px;
+  flex-grow: 1;
   display: grid;
   place-items: center;
+
+  .title {
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    margin-bottom: 32px;
+  }
 }
 
-.container {
+.email-sent-container {
   max-width: 300px;
 }
 
-.logo {
+.email-sent-logo {
   display: none;
   margin-bottom: 48px;
   text-align: center;
@@ -17,15 +24,13 @@
   img {
     width: 150px;
   }
+
+  @media (max-width: 640px) {
+    display: block;
+  }
 }
 
-.title {
-  font-size: var(--lg);
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.subtitle {
+.email-sent-subtitle {
   font-size: var(--md);
   text-align: center;
   color: var(--dark-gray);
@@ -34,8 +39,9 @@
   margin-bottom: 32px;
 }
 
-.email-image {
+.email-sent-image {
   background-color: var(--text-input-field);
+  color: var(--light-blue);
   width: 132px;
   height: 132px;
   margin: 0 auto 24px;
@@ -44,41 +50,22 @@
   justify-content: center;
   align-items: center;
 }
-.email-image img {
-  width: 80px;
-}
 
-.primary-button {
-  font-size: var(--md);
-  font-weight: bold;
-  background-color: var(--dark-blue);
-  color: var(--white);
-  width: 100%;
-  height: 48px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.login-button {
+.email-sent-login-button {
   margin-top: 14px;
   margin-bottom: 30px;
 }
 
-.resend {
+.email-sent-resend {
   font-size: var(--sm);
   text-align: center;
-}
-.resend span {
-  color: var(--dark-gray);
-}
-.resend a {
-  color: var(--light-blue);
-  text-decoration: none;
-}
 
-@media (max-width: 640px) {
-  .logo {
-    display: block;
+  span {
+    color: var(--dark-gray);
+  }
+
+  a {
+    color: var(--light-blue);
+    text-decoration: none;
   }
 }
