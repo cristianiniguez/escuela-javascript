@@ -1,16 +1,17 @@
 import React from 'react';
 import { HiOutlineShoppingCart } from 'react-icons/hi';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
-
-import '@styles/components/ShoppingCartIcon.scss';
 
 const ShoppingCartIcon = ({ className, point }) => {
   return (
-    <div className={clsx('shopping-cart-icon', className)}>
-      <div className='shopping-cart-icon-container'>
-        <HiOutlineShoppingCart className='shopping-cart-icon-svg' size={32} />
-        {point && <div className='shopping-cart-icon-point'>{point}</div>}
+    <div className={className}>
+      <div className='relative'>
+        <HiOutlineShoppingCart size={32} />
+        {point && (
+          <div className='absolute top-0 right-0 w-4 h-4 bg-blue-900 text-white rounded-full grid place-items-center text-xs'>
+            {point}
+          </div>
+        )}
       </div>
     </div>
   );
