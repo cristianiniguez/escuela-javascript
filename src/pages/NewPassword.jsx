@@ -6,7 +6,7 @@ import '@styles/NewPassword.scss';
 
 const NewPassword = () => {
   return (
-    <Layout hideHeader>
+    <Layout hideHeaderOnMobile>
       <section className='new-password'>
         <div className='container'>
           <div className='new-password-logo'>

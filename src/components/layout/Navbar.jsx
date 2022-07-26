@@ -1,13 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 
 import Logo from '@assets/logos/logo_yard_sale.svg';
 import ShoppingCartIcon from '@components/ShoppingCartIcon';
 import NavbarLink from './NavbarLink';
 
-const Navbar = () => {
+const Navbar = ({ hideOnMobile }) => {
   return (
-    <nav className='h-16 px-4 shadow-sm flex justify-between items-center'>
+    <nav
+      className={clsx(
+        hideOnMobile ? 'hidden' : 'flex',
+        'h-16 px-4 shadow-sm sm:flex justify-between items-center',
+      )}
+    >
       <HiOutlineMenuAlt1 className='sm:hidden' size={32} />
       <div className='flex items-center gap-3 h-full'>
         <img src={Logo} alt='Logo YardSale' className='h-1/2' />
@@ -38,6 +45,10 @@ const Navbar = () => {
       </div>
     </nav>
   );
+};
+
+Navbar.propTypes = {
+  hideOnMobile: PropTypes.bool,
 };
 
 export default Navbar;

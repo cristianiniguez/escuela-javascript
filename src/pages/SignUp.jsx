@@ -5,7 +5,7 @@ import '@styles/SignUp.scss';
 
 const SignUp = () => {
   return (
-    <Layout hideHeader>
+    <Layout hideHeaderOnMobile>
       <section className='sign-up'>
         <div className='sign-up-container'>
           <h1 className='title'>My account</h1>

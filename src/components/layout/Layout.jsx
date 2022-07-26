@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Header from './Navbar';
+import Navbar from './Navbar';
 
-const Layout = ({ children, hideHeader = false }) => {
+const Layout = ({ children, hideHeaderOnMobile = false }) => {
   return (
     <div className='bg-blue-50 min-h-screen flex flex-col items-stretch'>
-      {!hideHeader && <Header />}
+      <Navbar hideOnMobile={hideHeaderOnMobile} />
       <main className='grow py-8'>{children}</main>
     </div>
   );
@@ -14,7 +14,7 @@ const Layout = ({ children, hideHeader = false }) => {
 
 Layout.propTypes = {
   children: PropTypes.node,
-  hideHeader: PropTypes.bool,
+  hideHeaderOnMobile: PropTypes.bool,
 };
 
 export default Layout;

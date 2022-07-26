@@ -7,7 +7,7 @@ import '@styles/EmailSent.scss';
 
 const EmailSent = () => {
   return (
-    <Layout hideHeader>
+    <Layout hideHeaderOnMobile>
       <section className='email-sent'>
         <div className='email-sent-container'>
           <div className='email-sent-logo'>

@@ -6,7 +6,7 @@ import '@styles/Login.scss';
 
 const Login = () => {
   return (
-    <Layout hideHeader>
+    <Layout hideHeaderOnMobile>
       <section className='login'>
         <div className='login-container'>
           <div className='container-center'>
