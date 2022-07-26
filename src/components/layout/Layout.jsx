@@ -7,7 +7,7 @@ const Layout = ({ children, hideHeaderOnMobile = false }) => {
   return (
     <div className='bg-blue-50 min-h-screen flex flex-col items-stretch'>
       <Navbar hideOnMobile={hideHeaderOnMobile} />
-      <main className='grow py-8'>{children}</main>
+      <main className='grow py-8 flex flex-col'>{children}</main>
     </div>
   );
 };

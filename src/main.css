@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.title {
+  @apply text-lg text-center;
+}
+
+.subtitle {
+  @apply text-base font-light text-center text-gray-500;
+}
