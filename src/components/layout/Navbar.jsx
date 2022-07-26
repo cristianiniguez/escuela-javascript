@@ -40,7 +40,7 @@ const Navbar = ({ hideOnMobile }) => {
         </ul>
       </div>
       <div className='flex items-center gap-3'>
-        <p className='text-gray-500 text-sm'>platzi@example.com</p>
+        <p className='text-gray-500 text-sm hidden sm:block'>platzi@example.com</p>
         <ShoppingCartIcon point={2} />
       </div>
     </nav>
