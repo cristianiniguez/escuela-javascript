@@ -9,3 +9,15 @@
 .subtitle {
   @apply text-base font-light text-center text-gray-500;
 }
+
+.button {
+  @apply px-2 text-center font-bold h-12 border-2 rounded-md cursor-pointer;
+}
+
+.button-primary {
+  @apply bg-blue-900 text-white border-blue-900;
+}
+
+.button-secondary {
+  @apply text-blue-900 border-blue-900;
+}

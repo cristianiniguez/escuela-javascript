@@ -19,7 +19,7 @@ const ShoppingCartIcon = ({ className, point }) => {
 
 ShoppingCartIcon.propTypes = {
   className: PropTypes.string,
-  point: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+  point: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default ShoppingCartIcon;

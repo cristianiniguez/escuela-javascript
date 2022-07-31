@@ -7,6 +7,9 @@ module.exports = {
       'fill-36': 'repeat(auto-fill, 9rem)',
       'fill-60': 'repeat(auto-fill, 15rem)',
     },
+    gridTemplateRows: {
+      'full-auto': '1fr auto',
+    },
   },
   plugins: [],
 };
