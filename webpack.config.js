@@ -43,14 +43,6 @@ module.exports = (_, { mode }) => {
           ],
         },
         {
-          test: /\.scss$/,
-          use: [
-            devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader',
-          ],
-        },
-        {
           test: /\.(png|svg|jpg|gif)$/,
           type: 'asset',
         },
