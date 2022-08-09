@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .title {
-  @apply text-lg text-center;
+  @apply font-bold text-lg text-center;
 }
 
 .subtitle {

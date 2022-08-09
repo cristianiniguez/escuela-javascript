@@ -11,7 +11,6 @@ import SignUp from '@pages/SignUp';
 import Checkout from '@pages/Checkout';
 import MyOrder from '@pages/MyOrder';
 import NotFound from '@pages/NotFound';
-import '@styles/global.scss';
 
 const App = () => {
   return (
