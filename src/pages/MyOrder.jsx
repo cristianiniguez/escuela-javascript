@@ -1,34 +1,38 @@
 import React from 'react';
 import { HiChevronRight } from 'react-icons/hi';
 
-import '@styles/MyOrder.scss';
+import Layout from '@components/layout/Layout';
 
 const Order = () => {
   return (
-    <div className='order'>
+    <div className='mb-3 flex items-center gap-4'>
       <div>
-        <p className='order-date'>04.25.21</p>
-        <p className='order-qty'>6 articles</p>
+        <p className='font-bold'>04.25.21</p>
+        <p className='text-sm text-gray-500'>6 articles</p>
       </div>
-      <div>
-        <p className='order-amount'>$560.00</p>
+      <div className='grow'>
+        <p className='text-end'>$560.00</p>
       </div>
-      <HiChevronRight className='order-arrow' />
+      <HiChevronRight className='text-gray-500' />
     </div>
   );
 };
 
 const MyOrder = () => {
   return (
-    <section className='my-order'>
-      <div className='container'>
-        <h1 className='title'>My orders</h1>
-        <Order />
-        <Order />
-        <Order />
-        <Order />
-      </div>
-    </section>
+    <Layout>
+      <section className='grow grid sm:justify-center px-8'>
+        <div className='sm:w-80 flex flex-col justify-center'>
+          <h1 className='title'>My orders</h1>
+          <div>
+            <Order />
+            <Order />
+            <Order />
+            <Order />
+          </div>
+        </div>
+      </section>
+    </Layout>
   );
 };
 
