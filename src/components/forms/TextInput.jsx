@@ -11,7 +11,7 @@ const TextInput = ({ id, label, placeholder = '', type = 'text' }) => {
         type={type}
         id={id}
         placeholder={placeholder}
-        className='text-sm bg-gray-200 h-8 rounded-md px-2'
+        className='w-full text-sm bg-gray-200 h-8 rounded-md px-2'
       />
     </div>
   );
