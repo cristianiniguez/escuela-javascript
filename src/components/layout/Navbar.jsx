@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
@@ -6,8 +6,15 @@ import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import Logo from '@assets/logos/logo_yard_sale.svg';
 import ShoppingCartIcon from '@components/ShoppingCartIcon';
 import NavbarLink from './NavbarLink';
+import Menu from './Menu';
 
 const Navbar = ({ hideOnMobile }) => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleToggle = () => {
+    setToggle((toggle) => !toggle);
+  };
+
   return (
     <nav
       className={clsx(
@@ -40,7 +47,15 @@ const Navbar = ({ hideOnMobile }) => {
         </ul>
       </div>
       <div className='flex items-center gap-3'>
-        <p className='text-gray-500 text-sm hidden sm:block'>platzi@example.com</p>
+        <div
+          className={clsx('relative cursor-pointer p-2 rounded-md hover:bg-slate-200', {
+            'bg-slate-200': toggle,
+          })}
+          onClick={handleToggle}
+        >
+          <p className='text-gray-500 text-sm hidden sm:block'>platzi@example.com</p>
+          {toggle && <Menu />}
+        </div>
         <ShoppingCartIcon point={2} />
       </div>
     </nav>

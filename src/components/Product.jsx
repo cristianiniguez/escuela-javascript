@@ -4,10 +4,10 @@ import Bike from '@assets/images/bike.jpg';
 import ShoppingCartIcon from './ShoppingCartIcon';
 
 const Product = () => {
-  const [cart, setCart] = useState('Hola');
+  const [cart, setCart] = useState([]);
 
   const handleClick = () => {
-    setCart('Hola Mundo');
+    setCart([]);
   };
 
   return (
