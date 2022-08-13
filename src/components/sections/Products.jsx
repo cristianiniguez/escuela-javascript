@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Product from '../Product';
-import { getProducts } from '@services/index';
+import useGetProducts from '@hooks/useGetProducts';
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    getProducts().then((products) => setProducts(products));
-  }, []);
+  const products = useGetProducts();
 
   return (
     <section id='products'>
       <div className='grid gap-6 place-content-center grid-cols-fill-36 sm:grid-cols-fill-60'>
         {products.map((product) => (
-          <Product key={product.id} />
+          <Product key={product.id} product={product} />
         ))}
       </div>
     </section>
