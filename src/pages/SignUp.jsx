@@ -11,14 +11,14 @@ const SignUp = () => {
           <form className='grow flex flex-col justify-center'>
             <h1 className='title'>My account</h1>
             <div className='grow sm:grow-0'>
-              <TextInput id='name' label='Name' placeholder='Your Name' />
+              <TextInput name='name' label='Name' placeholder='Your Name' />
               <TextInput
-                id='email'
+                name='email'
                 label='Email Address'
                 placeholder='Your Email Address'
                 type='email'
               />
-              <TextInput id='password' label='Password' placeholder='*****' type='password' />
+              <TextInput name='password' label='Password' placeholder='*****' type='password' />
             </div>
             <div className='form-group'>
               <input

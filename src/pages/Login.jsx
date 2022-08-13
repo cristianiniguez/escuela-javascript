@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import Layout from '@components/layout/Layout';
 import Logo from '@assets/logos/logo_yard_sale.svg';
 import TextInput from '@components/forms/TextInput';
 
 const Login = () => {
+  const form = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(form.current);
+    const data = {
+      username: formData.get('email'),
+      password: formData.get('password'),
+    };
+    console.log(data);
+  };
+
   return (
     <Layout hideHeaderOnMobile>
-      <section className='grow grid justify-items-center items-stretch sm:items-center'>
-        <div className='max-w-xs grid grid-rows-full-auto'>
+      <section className='grow grid sm:place-items-center px-8'>
+        <div className='sm:w-80 grid grid-rows-full-auto sm:grid-rows-auto-auto'>
           <div className='flex flex-col justify-center py-4'>
             <div className='w-36 mb-12 mx-auto text-center sm:hidden'>
               <img className='w-full' src={Logo} alt='Logo' />
             </div>
-            <form>
+            <form ref={form} onSubmit={handleSubmit}>
               <TextInput
-                id='email'
                 label='Email address'
+                name='email'
                 placeholder='platzi@example.com'
                 type='email'
               />
-              <TextInput id='password' label='Password' placeholder='*********' type='password' />
+              <TextInput label='Password' name='password' placeholder='*********' type='password' />
               <div className='form-group'>
-                <input
-                  type='submit'
-                  defaultValue='Log in'
-                  className='button button-primary login-button'
-                />
+                <button className='button button-primary login-button w-full mb-4' type='submit'>
+                  Log in
+                </button>
               </div>
               <p className='text-sm text-center text-blue-500'>
                 <a href='/'>Forgot my password</a>
@@ -34,7 +44,7 @@ const Login = () => {
             </form>
           </div>
           <div className='flex flex-col justify-center'>
-            <button type='button' className='button button-secondary'>
+            <button type='button' className='button button-secondary w-full'>
               Sign up
             </button>
           </div>

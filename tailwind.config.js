@@ -8,6 +8,7 @@ module.exports = {
       'fill-60': 'repeat(auto-fill, 15rem)',
     },
     gridTemplateRows: {
+      'auto-auto': 'auto auto',
       'full-auto': '1fr auto',
     },
   },

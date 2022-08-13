@@ -15,9 +15,9 @@ const NewPassword = () => {
           <h1 className='title mb-3'>Create a new password</h1>
           <p className='subtitle mb-8'>Enter a new password for your account</p>
           <form className='form'>
-            <TextInput id='password' label='Password' placeholder='*****' type='password' />
+            <TextInput name='password' label='Password' placeholder='*****' type='password' />
             <TextInput
-              id='confirm-password'
+              name='confirm-password'
               label='Re-enter password'
               placeholder='*****'
               type='password'
