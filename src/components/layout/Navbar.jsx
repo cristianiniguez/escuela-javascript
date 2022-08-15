@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 
+import AppContext from '@context/AppContext';
 import Logo from '@assets/logos/logo_yard_sale.svg';
 import ShoppingCartIcon from '@components/ShoppingCartIcon';
 import NavbarLink from './NavbarLink';
 import Menu from './Menu';
 
 const Navbar = ({ hideOnMobile }) => {
+  const { state } = useContext(AppContext);
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
@@ -56,7 +58,7 @@ const Navbar = ({ hideOnMobile }) => {
           <p className='text-gray-500 text-sm hidden sm:block'>platzi@example.com</p>
           {toggle && <Menu />}
         </div>
-        <ShoppingCartIcon point={2} />
+        <ShoppingCartIcon point={state.cart.length > 0 ? state.cart.length : null} />
       </div>
     </nav>
   );
