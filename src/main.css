@@ -21,3 +21,7 @@
 .button-secondary {
   @apply text-blue-900 border-blue-900;
 }
+
+.panel {
+  @apply bg-blue-50 border border-gray-400 shadow-sm z-50;
+}

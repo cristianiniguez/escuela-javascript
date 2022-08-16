@@ -17,7 +17,7 @@ MenuItem.propTypes = {
 
 const Menu = () => {
   return (
-    <div className='w-32 bg-blue-50 border border-gray-400 rounded-lg absolute top-full right-0'>
+    <div className='w-32 panel rounded-lg absolute top-full right-0'>
       <ul className='p-4 flex flex-col gap-2'>
         <MenuItem label='My orders' />
         <MenuItem label='My account' />

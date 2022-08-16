@@ -8,14 +8,12 @@ import Logo from '@assets/logos/logo_yard_sale.svg';
 import ShoppingCartIcon from '@components/ShoppingCartIcon';
 import NavbarLink from './NavbarLink';
 import Menu from './Menu';
+import Orders from './Orders';
 
 const Navbar = ({ hideOnMobile }) => {
   const { state } = useContext(AppContext);
-  const [toggle, setToggle] = useState(false);
-
-  const handleToggle = () => {
-    setToggle((toggle) => !toggle);
-  };
+  const [menuShown, setMenuShown] = useState(false);
+  const [ordersShown, setOrdersShown] = useState(false);
 
   return (
     <nav
@@ -51,14 +49,22 @@ const Navbar = ({ hideOnMobile }) => {
       <div className='flex items-center gap-3'>
         <div
           className={clsx('relative cursor-pointer p-2 rounded-md hover:bg-slate-200', {
-            'bg-slate-200': toggle,
+            'bg-slate-200': menuShown,
           })}
-          onClick={handleToggle}
+          onClick={() => setMenuShown((shown) => !shown)}
         >
           <p className='text-gray-500 text-sm hidden sm:block'>platzi@example.com</p>
-          {toggle && <Menu />}
+          {menuShown && <Menu />}
         </div>
-        <ShoppingCartIcon point={state.cart.length > 0 ? state.cart.length : null} />
+        <div
+          className={clsx('relative cursor-pointer p-2 rounded-md hover:bg-slate-200', {
+            'bg-slate-200': ordersShown,
+          })}
+          onClick={() => setOrdersShown((shown) => !shown)}
+        >
+          <ShoppingCartIcon point={state.cart.length > 0 ? state.cart.length : null} />
+          {ordersShown && <Orders />}
+        </div>
       </div>
     </nav>
   );
