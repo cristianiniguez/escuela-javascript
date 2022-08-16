@@ -8,7 +8,7 @@ import Logo from '@assets/logos/logo_yard_sale.svg';
 import ShoppingCartIcon from '@components/ShoppingCartIcon';
 import NavbarLink from './NavbarLink';
 import Menu from './Menu';
-import Orders from './Orders';
+import ShoppingCart from './ShoppingCart';
 
 const Navbar = ({ hideOnMobile }) => {
   const { state } = useContext(AppContext);
@@ -47,23 +47,27 @@ const Navbar = ({ hideOnMobile }) => {
         </ul>
       </div>
       <div className='flex items-center gap-3'>
-        <div
-          className={clsx('relative cursor-pointer p-2 rounded-md hover:bg-slate-200', {
-            'bg-slate-200': menuShown,
-          })}
-          onClick={() => setMenuShown((shown) => !shown)}
-        >
-          <p className='text-gray-500 text-sm hidden sm:block'>platzi@example.com</p>
+        <div className='relative'>
+          <p
+            className={clsx(
+              'cursor-pointer p-2 rounded-md text-gray-500 text-sm hidden sm:block hover:bg-slate-200',
+              { 'bg-slate-200': menuShown },
+            )}
+            onClick={() => setMenuShown((shown) => !shown)}
+          >
+            platzi@example.com
+          </p>
           {menuShown && <Menu />}
         </div>
-        <div
-          className={clsx('relative cursor-pointer p-2 rounded-md hover:bg-slate-200', {
-            'bg-slate-200': ordersShown,
-          })}
-          onClick={() => setOrdersShown((shown) => !shown)}
-        >
-          <ShoppingCartIcon point={state.cart.length > 0 ? state.cart.length : null} />
-          {ordersShown && <Orders />}
+        <div className='relative'>
+          <ShoppingCartIcon
+            className={clsx('cursor-pointer p-2 rounded-md hover:bg-slate-200', {
+              'bg-slate-200': ordersShown,
+            })}
+            onClick={() => setOrdersShown((shown) => !shown)}
+            point={state.cart.length > 0 ? state.cart.length : null}
+          />
+          {ordersShown && <ShoppingCart />}
         </div>
       </div>
     </nav>
