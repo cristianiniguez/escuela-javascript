@@ -20,7 +20,7 @@ const ShoppingCartIcon = ({ className, onClick = () => null, point }) => {
 ShoppingCartIcon.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
-  point: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  point: PropTypes.node,
 };
 
 export default ShoppingCartIcon;

@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 import ShoppingCartIcon from './ShoppingCartIcon';
 import AppContext from '@context/AppContext';
+import { HiCheck, HiPlus } from 'react-icons/hi';
 
 const Product = ({ product }) => {
-  const { addToCart } = useContext(AppContext);
+  const { state, addToCart } = useContext(AppContext);
+
+  const isOnCart = state.cart.some((item) => item.id === product.id);
+  const Point = isOnCart ? HiCheck : HiPlus;
 
   return (
     <div>
@@ -19,8 +24,15 @@ const Product = ({ product }) => {
           <p className='font-bold mb-1'>${product.price}</p>
           <p className='text-sm text-gray-500'>{product.title}</p>
         </div>
-        <div className='rounded-full bg-blue-300 p-1' onClick={() => addToCart(product)}>
-          <ShoppingCartIcon className='text-white' point='+' />
+        <div
+          className={clsx(
+            'rounded-full bg-blue-300 p-1',
+            isOnCart ? 'bg-gray-300' : 'bg-blue-300',
+            { 'cursor-pointer': !isOnCart },
+          )}
+          onClick={() => !isOnCart && addToCart(product)}
+        >
+          <ShoppingCartIcon className='text-white' point={<Point size={12} />} />
         </div>
       </div>
     </div>
