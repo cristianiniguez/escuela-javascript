@@ -8,9 +8,32 @@ app.get('/', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
+  res.json([
+    {
+      name: 'Product 2',
+      price: 1000,
+    },
+    {
+      name: 'Product 1',
+      price: 2000,
+    },
+  ]);
+});
+
+app.get('/products/:id', (req, res) => {
+  const { id } = req.params;
   res.json({
-    name: 'Product 1',
+    id,
+    name: 'Product 2',
     price: 1000,
+  });
+});
+
+app.get('/categories/:id/products/:productId', (req, res) => {
+  const { id, productId } = req.params;
+  res.json({
+    id,
+    productId,
   });
 });
 
