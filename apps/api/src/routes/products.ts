@@ -25,11 +25,17 @@ productsRouter.get('/filter', (req, res) => {
 
 productsRouter.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
-    id,
-    name: 'Product 2',
-    price: 1000,
-  });
+  if (id === '999') {
+    res.status(404).json({
+      message: 'Not Found',
+    });
+  } else {
+    res.status(201).json({
+      id,
+      name: 'Product 2',
+      price: 1000,
+    });
+  }
 });
 
 productsRouter.post('/', (req, res) => {
