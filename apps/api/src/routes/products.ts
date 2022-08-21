@@ -35,8 +35,24 @@ productsRouter.get('/:id', (req, res) => {
 productsRouter.post('/', (req, res) => {
   const body = req.body;
   res.json({
-    message: 'Product created',
+    message: 'created',
     data: body,
+  });
+});
+
+productsRouter.patch('/:id', (req, res) => {
+  const body = req.body;
+  res.json({
+    message: 'updated',
+    data: body,
+    id: req.params.id,
+  });
+});
+
+productsRouter.delete('/:id', (req, res) => {
+  res.json({
+    message: 'updated',
+    id: req.params.id,
   });
 });
 
