@@ -17,26 +17,23 @@ productsRouter.get('/:id', (req, res) => {
 
 productsRouter.post('/', (req, res) => {
   const body = req.body;
-  res.json({
-    message: 'created',
-    data: body,
-  });
+  const newProduct = productsService.create(body);
+  res.json(newProduct);
 });
 
 productsRouter.patch('/:id', (req, res) => {
-  const body = req.body;
-  res.json({
-    message: 'updated',
-    data: body,
-    id: req.params.id,
-  });
+  const {
+    body,
+    params: { id },
+  } = req;
+  const updatedProduct = productsService.update(id, body);
+  res.json(updatedProduct);
 });
 
 productsRouter.delete('/:id', (req, res) => {
-  res.json({
-    message: 'updated',
-    id: req.params.id,
-  });
+  const { id } = req.params;
+  const deletedProduct = productsService.delete(id);
+  res.json(deletedProduct);
 });
 
 export default productsRouter;

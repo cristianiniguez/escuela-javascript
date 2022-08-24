@@ -24,7 +24,12 @@ class ProductsService {
         image: faker.image.imageUrl(),
       }));
   }
-  create() {}
+
+  create(data: Omit<Product, 'id'>) {
+    const newProduct = { id: faker.datatype.uuid(), ...data };
+    this.products.push(newProduct);
+    return newProduct;
+  }
 
   find() {
     return this.products;
@@ -34,9 +39,23 @@ class ProductsService {
     return this.products.find((p) => p.id === id);
   }
 
-  update() {}
+  update(id: string, data: Partial<Omit<Product, 'id'>>) {
+    const index = this.products.findIndex((p) => p.id === id);
+    if (index === -1) throw new Error(`Product with id ${id} not found`);
 
-  delete() {}
+    const product = this.products[index];
+    const updatedProduct = { ...product, ...data };
+    this.products[index] = updatedProduct;
+    return updatedProduct;
+  }
+
+  delete(id: string) {
+    const index = this.products.findIndex((p) => p.id === id);
+    if (index === -1) throw new Error(`Product with id ${id} not found`);
+
+    const [deletedProduct] = this.products.splice(index, 1);
+    return deletedProduct;
+  }
 }
 
 export default ProductsService;
