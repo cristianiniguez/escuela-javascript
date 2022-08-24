@@ -4,35 +4,44 @@ import ProductsService from '../services/products';
 const productsRouter = Router();
 const productsService = new ProductsService();
 
-productsRouter.get('/', (req, res) => {
-  const products = productsService.find();
+productsRouter.get('/', async (req, res) => {
+  const products = await productsService.find();
   res.json(products);
 });
 
-productsRouter.get('/:id', (req, res) => {
+productsRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const product = productsService.findOne(id);
+  const product = await productsService.findOne(id);
   res.json(product);
 });
 
-productsRouter.post('/', (req, res) => {
+productsRouter.post('/', async (req, res) => {
   const body = req.body;
-  const newProduct = productsService.create(body);
+  const newProduct = await productsService.create(body);
   res.json(newProduct);
 });
 
-productsRouter.patch('/:id', (req, res) => {
+productsRouter.patch('/:id', async (req, res) => {
   const {
     body,
     params: { id },
   } = req;
-  const updatedProduct = productsService.update(id, body);
-  res.json(updatedProduct);
+
+  try {
+    const updatedProduct = await productsService.update(id, body);
+    res.json(updatedProduct);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(404).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
 });
 
-productsRouter.delete('/:id', (req, res) => {
+productsRouter.delete('/:id', async (req, res) => {
   const { id } = req.params;
-  const deletedProduct = productsService.delete(id);
+  const deletedProduct = await productsService.delete(id);
   res.json(deletedProduct);
 });
 

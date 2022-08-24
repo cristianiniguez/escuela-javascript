@@ -25,21 +25,25 @@ class ProductsService {
       }));
   }
 
-  create(data: Omit<Product, 'id'>) {
+  async create(data: Omit<Product, 'id'>) {
     const newProduct = { id: faker.datatype.uuid(), ...data };
     this.products.push(newProduct);
     return newProduct;
   }
 
   find() {
-    return this.products;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 5000);
+    });
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.products.find((p) => p.id === id);
   }
 
-  update(id: string, data: Partial<Omit<Product, 'id'>>) {
+  async update(id: string, data: Partial<Omit<Product, 'id'>>) {
     const index = this.products.findIndex((p) => p.id === id);
     if (index === -1) throw new Error(`Product with id ${id} not found`);
 
@@ -49,7 +53,7 @@ class ProductsService {
     return updatedProduct;
   }
 
-  delete(id: string) {
+  async delete(id: string) {
     const index = this.products.findIndex((p) => p.id === id);
     if (index === -1) throw new Error(`Product with id ${id} not found`);
 
