@@ -4,5 +4,4 @@ Proyecto de la **[Escuela de javaScript](https://platzi.com/escuela-javascript/)
 
 - **[Curso Práctico de Frontend Developer](https://platzi.com/cursos/frontend-developer-practico/)**
 - **[Curso Práctico de React](https://platzi.com/cursos/react-practico/)**
-
-Ver proyecto: **https://criniguez-platzi-yardsale.netlify.app**
+- **[Curso de Backend con Node.js: API REST con Express.js](https://platzi.com/cursos/backend-nodejs/)**
