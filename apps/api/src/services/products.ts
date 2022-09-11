@@ -1,10 +1,12 @@
 import { faker } from '@faker-js/faker';
+import boom from '@hapi/boom';
 
 export type Product = {
   id: string;
   name: string;
   price: number;
   image: string;
+  isBlocked: boolean;
 };
 
 class ProductsService {
@@ -22,6 +24,7 @@ class ProductsService {
         name: faker.commerce.productName(),
         price: parseInt(faker.commerce.price()),
         image: faker.image.imageUrl(),
+        isBlocked: faker.datatype.boolean(),
       }));
   }
 
@@ -40,13 +43,15 @@ class ProductsService {
   }
 
   async findOne(id: string) {
-    throw new Error('test error');
-    return this.products.find((p) => p.id === id);
+    const product = this.products.find((p) => p.id === id);
+    if (!product) throw boom.notFound(`Product with id ${id} not found`);
+    if (product.isBlocked) throw boom.conflict(`Product with id ${id} is blocked`);
+    return product;
   }
 
   async update(id: string, data: Partial<Omit<Product, 'id'>>) {
     const index = this.products.findIndex((p) => p.id === id);
-    if (index === -1) throw new Error(`Product with id ${id} not found`);
+    if (index === -1) throw boom.notFound(`Product with id ${id} not found`);
 
     const product = this.products[index];
     const updatedProduct = { ...product, ...data };
@@ -56,7 +61,7 @@ class ProductsService {
 
   async delete(id: string) {
     const index = this.products.findIndex((p) => p.id === id);
-    if (index === -1) throw new Error(`Product with id ${id} not found`);
+    if (index === -1) throw boom.notFound(`Product with id ${id} not found`);
 
     const [deletedProduct] = this.products.splice(index, 1);
     return deletedProduct;

@@ -25,7 +25,7 @@ productsRouter.post('/', async (req, res) => {
   res.json(newProduct);
 });
 
-productsRouter.patch('/:id', async (req, res) => {
+productsRouter.patch('/:id', async (req, res, next) => {
   const {
     body,
     params: { id },
@@ -35,11 +35,7 @@ productsRouter.patch('/:id', async (req, res) => {
     const updatedProduct = await productsService.update(id, body);
     res.json(updatedProduct);
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(404).json({ message: error.message });
-    } else {
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
+    next(error);
   }
 });
 
