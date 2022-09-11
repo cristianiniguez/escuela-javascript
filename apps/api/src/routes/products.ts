@@ -9,10 +9,14 @@ productsRouter.get('/', async (req, res) => {
   res.json(products);
 });
 
-productsRouter.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const product = await productsService.findOne(id);
-  res.json(product);
+productsRouter.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await productsService.findOne(id);
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
 });
 
 productsRouter.post('/', async (req, res) => {

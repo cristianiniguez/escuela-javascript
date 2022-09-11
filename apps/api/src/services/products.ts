@@ -40,6 +40,7 @@ class ProductsService {
   }
 
   async findOne(id: string) {
+    throw new Error('test error');
     return this.products.find((p) => p.id === id);
   }
 
