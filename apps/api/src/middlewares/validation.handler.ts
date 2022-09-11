@@ -8,8 +8,8 @@ const validationHandler = (
 ): RequestHandler => {
   return (req, res, next) => {
     const data = req[property];
-    const { error } = schema.validate(data);
-    if (error) next(boom.badRequest(error.message));
+    const { error } = schema.validate(data, { abortEarly: false });
+    if (error) return next(boom.badRequest(error.message));
     next();
   };
 };
