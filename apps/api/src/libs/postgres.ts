@@ -1,11 +1,10 @@
 import { Pool } from 'pg';
+import config from '../config';
 
-const pool = new Pool({
-  host: 'localhost',
-  port: 5432,
-  user: 'root',
-  password: 'admin123',
-  database: 'escuela-javascript',
-});
+const { host, name, port } = config.db;
+const user = encodeURIComponent(config.db.user);
+const password = encodeURIComponent(config.db.password);
+const uri = `postgres://${user}:${password}@${host}:${port}/${name}`;
+const pool = new Pool({ connectionString: uri });
 
 export default pool;
