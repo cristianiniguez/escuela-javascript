@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import boom from '@hapi/boom';
-import getConnection from '../libs/postgres';
+import { Pool } from 'pg';
+import pool from '../libs/postgres';
 
 export type Product = {
   id: string;
@@ -12,9 +13,11 @@ export type Product = {
 
 class ProductsService {
   private products: Product[] = [];
+  private pool: Pool;
 
   constructor() {
-    this.generate();
+    this.pool = pool;
+    this.pool.on('error', console.error);
   }
 
   private generate() {
@@ -36,8 +39,8 @@ class ProductsService {
   }
 
   async find() {
-    const client = await getConnection();
-    const result = await client.query('SELECT * FROM tasks');
+    const query = 'SELECT * FROM tasks';
+    const result = await this.pool.query(query);
     return result.rows;
   }
 
