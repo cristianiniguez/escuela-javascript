@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import boom from '@hapi/boom';
+import getConnection from '../libs/postgres';
 
 export type Product = {
   id: string;
@@ -34,12 +35,10 @@ class ProductsService {
     return newProduct;
   }
 
-  find() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.products);
-      }, 5000);
-    });
+  async find() {
+    const client = await getConnection();
+    const result = await client.query('SELECT * FROM tasks');
+    return result.rows;
   }
 
   async findOne(id: string) {
