@@ -1,7 +1,4 @@
-import { faker } from '@faker-js/faker';
 import boom from '@hapi/boom';
-import { Pool } from 'pg';
-import pool from '../libs/postgres';
 import sequelize from '../libs/sequelize';
 
 export type User = {
@@ -12,17 +9,8 @@ export type User = {
 };
 
 class UsersService {
-  private users: User[] = [];
-  private pool: Pool;
-
-  constructor() {
-    this.pool = pool;
-    this.pool.on('error', console.error);
-  }
-
-  async create(data: Omit<User, 'id'>) {
-    const newUser = { id: faker.datatype.uuid(), ...data };
-    this.users.push(newUser);
+  async create(data: Pick<User, 'email' | 'password'>) {
+    const newUser = await sequelize.models.User.create(data);
     return newUser;
   }
 
@@ -31,28 +19,24 @@ class UsersService {
     return result;
   }
 
-  async findOne(id: string) {
-    const user = this.users.find((p) => p.id === id);
+  async findOne(id: number) {
+    const user = await sequelize.models.User.findByPk(id);
     if (!user) throw boom.notFound(`User with id ${id} not found`);
     return user;
   }
 
-  async update(id: string, data: Partial<Omit<User, 'id'>>) {
-    const index = this.users.findIndex((p) => p.id === id);
-    if (index === -1) throw boom.notFound(`User with id ${id} not found`);
-
-    const user = this.users[index];
-    const updatedUser = { ...user, ...data };
-    this.users[index] = updatedUser;
-    return updatedUser;
+  async update(id: number, data: Partial<Pick<User, 'email' | 'password'>>) {
+    const user = await sequelize.models.User.findByPk(id);
+    if (!user) throw boom.notFound(`User with id ${id} not found`);
+    const result = await user.update(data);
+    return result;
   }
 
-  async delete(id: string) {
-    const index = this.users.findIndex((p) => p.id === id);
-    if (index === -1) throw boom.notFound(`User with id ${id} not found`);
-
-    const [deletedUser] = this.users.splice(index, 1);
-    return deletedUser;
+  async delete(id: number) {
+    const user = await sequelize.models.User.findByPk(id);
+    if (!user) throw boom.notFound(`User with id ${id} not found`);
+    await user.destroy();
+    return id;
   }
 }
 
