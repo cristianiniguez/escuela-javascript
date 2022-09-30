@@ -1,7 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import apiRouter from './routes';
-import { boomErrorHandler, errorHandler, logErrors } from './middlewares/error.handler';
+import {
+  boomErrorHandler,
+  errorHandler,
+  logErrors,
+  ormErrorHandler,
+} from './middlewares/error.handler';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,9 +20,7 @@ app.get('/', (req, res) => {
 
 apiRouter(app);
 
-app.use(logErrors);
-app.use(boomErrorHandler);
-app.use(errorHandler);
+app.use(logErrors, ormErrorHandler, boomErrorHandler, errorHandler);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

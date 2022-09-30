@@ -21,10 +21,15 @@ usersRouter.get('/:id', validationHandler(getUserSchema, 'params'), async (req, 
   }
 });
 
-usersRouter.post('/', validationHandler(createUserSchema), async (req, res) => {
+usersRouter.post('/', validationHandler(createUserSchema), async (req, res, next) => {
   const body = req.body;
-  const newUser = await usersService.create(body);
-  res.json(newUser);
+
+  try {
+    const newUser = await usersService.create(body);
+    res.json(newUser);
+  } catch (error) {
+    next(error);
+  }
 });
 
 usersRouter.patch(
