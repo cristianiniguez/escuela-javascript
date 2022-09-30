@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ProductsService from '../services/products';
+import ProductsService from '../services/products.service';
 import validationHandler from '../middlewares/validation.handler';
 import {
   createProductSchema,
