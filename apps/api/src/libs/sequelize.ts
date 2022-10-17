@@ -11,6 +11,4 @@ const sequelize = new Sequelize(uri, { dialect: 'postgres', logging: true });
 
 setupModels(sequelize);
 
-sequelize.sync();
-
 export default sequelize;

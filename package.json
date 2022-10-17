@@ -8,7 +8,11 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel"
+    "dev": "turbo run dev --parallel",
+    "migration:generate": "npm run migration:generate -w apps/api",
+    "migration:run": "npm run migration:run -w apps/api",
+    "migration:revert": "npm run migration:revert -w apps/api",
+    "migration:clean": "npm run migration:clean -w apps/api"
   },
   "repository": {
     "type": "git",

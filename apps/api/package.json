@@ -3,6 +3,29 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint",
+    "migration": "ts-node ./src/db/migrator.ts",
+    "migration:generate": "npm run migration -- create --name",
+    "migration:run": "npm run migration -- up",
+    "migration:revert": "npm run migrator -- down",
+    "migration:clean": "npm run migrator -- down --to 0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^7.4.0",
+    "@hapi/boom": "^10.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.23.2",
+    "umzug": "^3.2.1"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/node": "^18.7.6",
@@ -14,36 +37,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
-    "sequelize-cli": "^6.5.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
-  },
-  "scripts": {
-    "dev": "nodemon src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "lint": "eslint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cristianiniguez/escuela-javascript.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cristianiniguez/escuela-javascript/issues"
-  },
-  "homepage": "https://github.com/cristianiniguez/escuela-javascript#readme",
-  "dependencies": {
-    "@faker-js/faker": "^7.4.0",
-    "@hapi/boom": "^10.0.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.2",
-    "express": "^4.18.1",
-    "joi": "^17.6.0",
-    "pg": "^8.8.0",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.23.2"
   }
 }
