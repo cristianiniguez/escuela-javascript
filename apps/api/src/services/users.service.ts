@@ -1,15 +1,16 @@
 import boom from '@hapi/boom';
 import sequelize from '../libs/sequelize';
 
-export type User = {
-  id: string;
+type CreateUserDTO = {
   email: string;
   password: string;
-  createdAt: string;
+  role: string;
 };
 
+type UpdateUserDTO = Partial<CreateUserDTO>;
+
 class UsersService {
-  async create(data: Pick<User, 'email' | 'password'>) {
+  async create(data: CreateUserDTO) {
     const newUser = await sequelize.models.User.create(data);
     return newUser;
   }
@@ -25,7 +26,7 @@ class UsersService {
     return user;
   }
 
-  async update(id: number, data: Partial<Pick<User, 'email' | 'password'>>) {
+  async update(id: number, data: UpdateUserDTO) {
     const user = await sequelize.models.User.findByPk(id);
     if (!user) throw boom.notFound(`User with id ${id} not found`);
     const result = await user.update(data);
