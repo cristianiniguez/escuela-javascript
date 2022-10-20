@@ -1,8 +1,17 @@
-import { Model, DataTypes, Sequelize, NOW } from 'sequelize';
+import {
+  DataTypes,
+  CreationOptional,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  ModelAttributes,
+  NOW,
+  Sequelize,
+} from 'sequelize';
 
 export const USER_TABLE = 'users';
 
-export const UserSchema = {
+export const UserSchema: ModelAttributes<User> = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -18,6 +27,11 @@ export const UserSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: 'customer',
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
@@ -26,7 +40,13 @@ export const UserSchema = {
   },
 };
 
-export class User extends Model {
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare email: string;
+  declare password: string;
+  declare role: CreationOptional<string>;
+  declare createdAt: CreationOptional<string>;
+
   static associate() {
     // models
   }
