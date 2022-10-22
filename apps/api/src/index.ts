@@ -7,6 +7,7 @@ import {
   logErrors,
   ormErrorHandler,
 } from './middlewares/error.handler';
+import './libs/sequelize';
 
 const app = express();
 const port = process.env.PORT || 3000;

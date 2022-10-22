@@ -29,10 +29,14 @@ productsRouter.get(
   },
 );
 
-productsRouter.post('/', validationHandler(createProductSchema), async (req, res) => {
-  const body = req.body;
-  const newProduct = await productsService.create(body);
-  res.json(newProduct);
+productsRouter.post('/', validationHandler(createProductSchema), async (req, res, next) => {
+  try {
+    const body = req.body;
+    const newProduct = await productsService.create(body);
+    res.json(newProduct);
+  } catch (error) {
+    next(error);
+  }
 });
 
 productsRouter.patch(

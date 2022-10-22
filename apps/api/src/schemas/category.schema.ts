@@ -11,4 +11,4 @@ export const createCategorySchema = Joi.object({
 
 export const updateCategorySchema = Joi.object({ name, image });
 
-export const getCategorySchema = Joi.object({ id: id.required });
+export const getCategorySchema = Joi.object({ id: id.required() });
