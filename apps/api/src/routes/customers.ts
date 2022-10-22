@@ -5,7 +5,7 @@ import {
   createCustomerSchema,
   getCustomerSchema,
   updateCustomerSchema,
-} from '../schemas/customers.schema';
+} from '../schemas/customer.schema';
 
 const customersRouter = Router();
 const customersService = new CustomersService();
