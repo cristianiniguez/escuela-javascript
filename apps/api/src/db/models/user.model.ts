@@ -47,8 +47,8 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   declare role: CreationOptional<string>;
   declare createdAt: CreationOptional<string>;
 
-  static associate() {
-    // models
+  static associate(models: Sequelize['models']) {
+    User.hasOne(models.Customer, { as: 'customer', foreignKey: 'userId' });
   }
 
   static config(sequelize: Sequelize) {

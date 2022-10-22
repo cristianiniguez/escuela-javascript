@@ -42,6 +42,7 @@ export const CustomerSchema: ModelAttributes<Customer> = {
   userId: {
     field: 'user_id',
     allowNull: false,
+    unique: true,
     type: DataTypes.INTEGER,
     references: {
       model: USER_TABLE,
