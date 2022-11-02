@@ -9,6 +9,6 @@ const uri = `postgres://${user}:${password}@${host}:${port}/${name}`;
 
 const sequelize = new Sequelize(uri, { dialect: 'postgres', logging: true });
 
-setupModels(sequelize);
+export const setupDb = () => setupModels(sequelize);
 
 export default sequelize;

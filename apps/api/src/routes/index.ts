@@ -4,6 +4,7 @@ import usersRouter from './users';
 import customersRouter from './customers';
 import productsRouter from './products';
 import categoriesRouter from './categories';
+import ordersRouter from './orders';
 
 function apiRouter(app: Express) {
   const router = Router();
@@ -11,6 +12,7 @@ function apiRouter(app: Express) {
   router.use('/customers', customersRouter);
   router.use('/products', productsRouter);
   router.use('/categories', categoriesRouter);
+  router.use('/orders', ordersRouter);
 
   app.use('/api/v1', router);
 }

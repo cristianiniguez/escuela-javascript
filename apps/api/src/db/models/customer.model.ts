@@ -63,6 +63,7 @@ export class Customer extends Model<InferAttributes<Customer>, InferCreationAttr
 
   static associate(models: Sequelize['models']) {
     this.belongsTo(models.User, { as: 'user' });
+    this.hasMany(models.Order, { as: 'orders', foreignKey: 'customerId' });
   }
 
   static config(sequelize: Sequelize) {
