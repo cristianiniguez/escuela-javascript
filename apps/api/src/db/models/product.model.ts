@@ -10,7 +10,7 @@ import {
 } from 'sequelize';
 import { Category, CATEGORY_TABLE } from './category.model';
 
-export const PROUCT_TABLE = 'products';
+export const PRODUCT_TABLE = 'products';
 
 export const ProductSchema: ModelAttributes<Product, InferAttributes<Product>> = {
   id: {
@@ -61,6 +61,6 @@ export class Product extends Model<InferAttributes<Product>, InferCreationAttrib
   }
 
   static config(sequelize: Sequelize) {
-    return { sequelize, tableName: PROUCT_TABLE, modelName: Product.name, timestamps: false };
+    return { sequelize, tableName: PRODUCT_TABLE, modelName: Product.name, timestamps: false };
   }
 }

@@ -44,6 +44,12 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
 
   static associate(models: Sequelize['models']) {
     this.belongsTo(models.Customer, { as: 'customer' });
+    this.belongsToMany(models.Product, {
+      as: 'products',
+      through: models.OrderItem,
+      foreignKey: 'orderId',
+      otherKey: 'productId',
+    });
   }
 
   static config(sequelize: Sequelize) {
