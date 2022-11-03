@@ -1,18 +1,28 @@
 import { Router } from 'express';
-import ProductsService from '../services/products.service';
+import ProductsService, { QueryProductsDTO } from '../services/products.service';
 import validationHandler from '../middlewares/validation.handler';
 import {
   createProductSchema,
   getProductSchema,
+  queryProductsSchema,
   updateProductSchema,
 } from '../schemas/product.schema';
 
 const productsRouter = Router();
 const productsService = new ProductsService();
 
-productsRouter.get('/', async (req, res) => {
-  const products = await productsService.find();
-  res.json(products);
+productsRouter.get('/', validationHandler(queryProductsSchema, 'query'), async (req, res, next) => {
+  const { limit, offset } = req.query;
+  const query: QueryProductsDTO = {};
+  if (limit) query.limit = +limit;
+  if (offset) query.offset = +offset;
+
+  try {
+    const products = await productsService.find(query);
+    res.json(products);
+  } catch (error) {
+    next(error);
+  }
 });
 
 productsRouter.get(

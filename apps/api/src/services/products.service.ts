@@ -1,4 +1,5 @@
 import boom from '@hapi/boom';
+import { Attributes, FindOptions } from 'sequelize';
 import { Product } from '../db/models/product.model';
 
 type CreateProductDTO = {
@@ -11,13 +12,22 @@ type CreateProductDTO = {
 
 type UpdateProductDTO = Partial<CreateProductDTO>;
 
+export type QueryProductsDTO = {
+  limit?: number;
+  offset?: number;
+};
+
 class ProductsService {
   create(data: CreateProductDTO) {
     return Product.create(data);
   }
 
-  find() {
-    return Product.findAll({ include: ['category'] });
+  find(query: QueryProductsDTO) {
+    const findOptions: FindOptions<Attributes<Product>> = { include: ['category'] };
+    const { limit, offset } = query;
+    if (limit) findOptions.limit = limit;
+    if (offset) findOptions.offset = offset;
+    return Product.findAll(findOptions);
   }
 
   async findOne(id: string) {
