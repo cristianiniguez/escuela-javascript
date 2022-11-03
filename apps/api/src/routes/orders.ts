@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import OrdersService from '../services/orders.service';
 import validationHandler from '../middlewares/validation.handler';
-import { createOrderSchema, getOrderSchema, updateOrderSchema } from '../schemas/order.schema';
+import {
+  addOrderItemSchema,
+  createOrderSchema,
+  getOrderSchema,
+  updateOrderSchema,
+} from '../schemas/order.schema';
 
 const ordersRouter = Router();
 const ordersService = new OrdersService();
@@ -29,6 +34,15 @@ ordersRouter.post('/', validationHandler(createOrderSchema), async (req, res, ne
   try {
     const newOrder = await ordersService.create(req.body);
     res.json(newOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
+ordersRouter.post('/add-item', validationHandler(addOrderItemSchema), async (req, res, next) => {
+  try {
+    const newOrderItem = await ordersService.addOrderItem(req.body);
+    res.json(newOrderItem);
   } catch (error) {
     next(error);
   }
