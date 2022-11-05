@@ -12,10 +12,13 @@ const productsRouter = Router();
 const productsService = new ProductsService();
 
 productsRouter.get('/', validationHandler(queryProductsSchema, 'query'), async (req, res, next) => {
-  const { limit, offset } = req.query;
+  const { limit, offset, price, min_price, max_price } = req.query;
   const query: QueryProductsDTO = {};
   if (limit) query.limit = +limit;
   if (offset) query.offset = +offset;
+  if (price) query.price = +price;
+  if (min_price) query.minPrice = +min_price;
+  if (max_price) query.maxPrice = +max_price;
 
   try {
     const products = await productsService.find(query);

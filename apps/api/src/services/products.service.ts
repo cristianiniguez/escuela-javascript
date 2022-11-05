@@ -1,5 +1,5 @@
 import boom from '@hapi/boom';
-import { Attributes, FindOptions } from 'sequelize';
+import { FindOptions, InferAttributes, Op, WhereAttributeHashValue } from 'sequelize';
 import { Product } from '../db/models/product.model';
 
 type CreateProductDTO = {
@@ -15,6 +15,9 @@ type UpdateProductDTO = Partial<CreateProductDTO>;
 export type QueryProductsDTO = {
   limit?: number;
   offset?: number;
+  price?: number;
+  minPrice?: number;
+  maxPrice?: number;
 };
 
 class ProductsService {
@@ -23,10 +26,25 @@ class ProductsService {
   }
 
   find(query: QueryProductsDTO) {
-    const findOptions: FindOptions<Attributes<Product>> = { include: ['category'] };
-    const { limit, offset } = query;
+    const { limit, offset, price, minPrice, maxPrice } = query;
+
+    const findOptions: FindOptions<InferAttributes<Product, { omit: never }>> = {
+      include: ['category'],
+    };
+
     if (limit) findOptions.limit = limit;
     if (offset) findOptions.offset = offset;
+
+    if (price || minPrice || maxPrice) {
+      const priceFilter: WhereAttributeHashValue<number> = {
+        ...(price ? { [Op.eq]: price } : {}),
+        ...(minPrice ? { [Op.gte]: minPrice } : {}),
+        ...(maxPrice ? { [Op.lte]: maxPrice } : {}),
+      };
+      findOptions.where = {};
+      findOptions.where.price = priceFilter;
+    }
+
     return Product.findAll(findOptions);
   }
 

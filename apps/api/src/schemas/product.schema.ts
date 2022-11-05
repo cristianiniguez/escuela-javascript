@@ -23,4 +23,10 @@ export const getProductSchema = Joi.object({
   id: id.required(),
 });
 
-export const queryProductsSchema = Joi.object({ limit, offset });
+export const queryProductsSchema = Joi.object({
+  limit,
+  offset,
+  price,
+  min_price: price,
+  max_price: price,
+});
