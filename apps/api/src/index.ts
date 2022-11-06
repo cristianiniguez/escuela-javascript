@@ -8,6 +8,7 @@ import {
   ormErrorHandler,
 } from './middlewares/error.handler';
 import { setupDb } from './libs/sequelize';
+import authHandler from './middlewares/auth.handler';
 
 setupDb();
 
@@ -19,6 +20,10 @@ app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World');
+});
+
+app.get('/check', authHandler, (req, res) => {
+  res.send(true);
 });
 
 apiRouter(app);

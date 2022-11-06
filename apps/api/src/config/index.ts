@@ -8,6 +8,7 @@ function getConfig(key: string): string {
 }
 
 const config = {
+  apiKey: getConfig('API_KEY'),
   env: process.env.NODE_ENV || 'dev',
   port: process.env.PORT || 3000,
   db: {
