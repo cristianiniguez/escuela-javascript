@@ -6,6 +6,7 @@ import {
   InferCreationAttributes,
   Model,
   ModelAttributes,
+  NonAttribute,
   NOW,
   Sequelize,
 } from 'sequelize';
@@ -60,6 +61,7 @@ export class Customer extends Model<InferAttributes<Customer>, InferCreationAttr
   declare phone: CreationOptional<string>;
   declare createdAt: CreationOptional<string>;
   declare userId: ForeignKey<User['id']>;
+  declare user?: NonAttribute<User>;
 
   static associate(models: Sequelize['models']) {
     this.belongsTo(models.User, { as: 'user' });

@@ -1,5 +1,7 @@
 import boom from '@hapi/boom';
+import _ from 'lodash';
 import { Customer } from '../db/models/customer.model';
+import { hashPassword } from '../utils';
 
 type CreateCustomerDTO = {
   name: string;
@@ -20,7 +22,11 @@ type UpdateCustomerDTO = {
 
 class CustomersService {
   async create(data: CreateCustomerDTO) {
-    return Customer.create(data, { include: ['user'] });
+    data.user.password = await hashPassword(data.user.password);
+    const newCustomer = await Customer.create(data, { include: ['user'] });
+    const customerObject = newCustomer.toJSON();
+    const userObject = newCustomer.user?.toJSON() || {};
+    return { ...customerObject, user: _.omit(userObject, ['password']) };
   }
 
   find() {
