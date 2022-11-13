@@ -9,6 +9,7 @@ import {
 } from './middlewares/error.handler';
 import { setupDb } from './libs/sequelize';
 import authHandler from './middlewares/auth.handler';
+import './auth';
 
 setupDb();
 

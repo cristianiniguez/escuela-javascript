@@ -26,6 +26,10 @@ class UsersService {
     return result;
   }
 
+  findByEmail(email: string) {
+    return User.findOne({ where: { email } });
+  }
+
   async findOne(id: number) {
     const user = await User.findByPk(id, {
       attributes: { exclude: ['password'] },

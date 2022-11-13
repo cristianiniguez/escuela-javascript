@@ -1,5 +1,6 @@
 import { Express, Router } from 'express';
 
+import authRouter from './auth';
 import usersRouter from './users';
 import customersRouter from './customers';
 import productsRouter from './products';
@@ -8,6 +9,7 @@ import ordersRouter from './orders';
 
 function apiRouter(app: Express) {
   const router = Router();
+  router.use('/auth', authRouter);
   router.use('/users', usersRouter);
   router.use('/customers', customersRouter);
   router.use('/products', productsRouter);
