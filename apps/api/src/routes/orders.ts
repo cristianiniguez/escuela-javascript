@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 import OrdersService from '../services/orders.service';
 import validationHandler from '../middlewares/validation.handler';
 import {
@@ -30,26 +31,37 @@ ordersRouter.get('/:id', validationHandler(getOrderSchema, 'params'), async (req
   }
 });
 
-ordersRouter.post('/', validationHandler(createOrderSchema), async (req, res, next) => {
-  try {
-    const newOrder = await ordersService.create(req.body);
-    res.json(newOrder);
-  } catch (error) {
-    next(error);
-  }
-});
+ordersRouter.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(createOrderSchema),
+  async (req, res, next) => {
+    try {
+      const newOrder = await ordersService.create(req.body);
+      res.json(newOrder);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
-ordersRouter.post('/add-item', validationHandler(addOrderItemSchema), async (req, res, next) => {
-  try {
-    const newOrderItem = await ordersService.addOrderItem(req.body);
-    res.json(newOrderItem);
-  } catch (error) {
-    next(error);
-  }
-});
+ordersRouter.post(
+  '/add-item',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(addOrderItemSchema),
+  async (req, res, next) => {
+    try {
+      const newOrderItem = await ordersService.addOrderItem(req.body);
+      res.json(newOrderItem);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 ordersRouter.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validationHandler(getOrderSchema, 'params'),
   validationHandler(updateOrderSchema),
   async (req, res, next) => {
@@ -67,15 +79,20 @@ ordersRouter.patch(
   },
 );
 
-ordersRouter.delete('/:id', validationHandler(getOrderSchema, 'params'), async (req, res, next) => {
-  const { id } = req.params;
+ordersRouter.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    const { id } = req.params;
 
-  try {
-    const deletedOrder = await ordersService.delete(+id);
-    res.json(deletedOrder);
-  } catch (error) {
-    next(error);
-  }
-});
+    try {
+      const deletedOrder = await ordersService.delete(+id);
+      res.json(deletedOrder);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export default ordersRouter;

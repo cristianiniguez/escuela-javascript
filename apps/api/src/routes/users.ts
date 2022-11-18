@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 import UsersService from '../services/users.service';
 import validationHandler from '../middlewares/validation.handler';
 import { createUserSchema, getUserSchema, updateUserSchema } from '../schemas/user.schema';
@@ -21,19 +22,25 @@ usersRouter.get('/:id', validationHandler(getUserSchema, 'params'), async (req, 
   }
 });
 
-usersRouter.post('/', validationHandler(createUserSchema), async (req, res, next) => {
-  const body = req.body;
+usersRouter.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(createUserSchema),
+  async (req, res, next) => {
+    const body = req.body;
 
-  try {
-    const newUser = await usersService.create(body);
-    res.json(newUser);
-  } catch (error) {
-    next(error);
-  }
-});
+    try {
+      const newUser = await usersService.create(body);
+      res.json(newUser);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 usersRouter.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validationHandler(getUserSchema, 'params'),
   validationHandler(updateUserSchema),
   async (req, res, next) => {
@@ -51,15 +58,20 @@ usersRouter.patch(
   },
 );
 
-usersRouter.delete('/:id', validationHandler(getUserSchema, 'params'), async (req, res, next) => {
-  const { id } = req.params;
+usersRouter.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(getUserSchema, 'params'),
+  async (req, res, next) => {
+    const { id } = req.params;
 
-  try {
-    const deletedUser = await usersService.delete(+id);
-    res.json(deletedUser);
-  } catch (error) {
-    next(error);
-  }
-});
+    try {
+      const deletedUser = await usersService.delete(+id);
+      res.json(deletedUser);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export default usersRouter;

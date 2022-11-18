@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 import CustomersService from '../services/customers.service';
 import validationHandler from '../middlewares/validation.handler';
 import {
@@ -29,19 +30,25 @@ customersRouter.get(
   },
 );
 
-customersRouter.post('/', validationHandler(createCustomerSchema), async (req, res, next) => {
-  const body = req.body;
+customersRouter.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(createCustomerSchema),
+  async (req, res, next) => {
+    const body = req.body;
 
-  try {
-    const newCustomer = await customersService.create(body);
-    res.json(newCustomer);
-  } catch (error) {
-    next(error);
-  }
-});
+    try {
+      const newCustomer = await customersService.create(body);
+      res.json(newCustomer);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 customersRouter.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validationHandler(getCustomerSchema, 'params'),
   validationHandler(updateCustomerSchema),
   async (req, res, next) => {
@@ -61,6 +68,7 @@ customersRouter.patch(
 
 customersRouter.delete(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validationHandler(getCustomerSchema, 'params'),
   async (req, res, next) => {
     const { id } = req.params;

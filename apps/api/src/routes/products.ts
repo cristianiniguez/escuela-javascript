@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 import ProductsService, { QueryProductsDTO } from '../services/products.service';
 import validationHandler from '../middlewares/validation.handler';
 import {
@@ -42,18 +43,24 @@ productsRouter.get(
   },
 );
 
-productsRouter.post('/', validationHandler(createProductSchema), async (req, res, next) => {
-  try {
-    const body = req.body;
-    const newProduct = await productsService.create(body);
-    res.json(newProduct);
-  } catch (error) {
-    next(error);
-  }
-});
+productsRouter.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(createProductSchema),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newProduct = await productsService.create(body);
+      res.json(newProduct);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 productsRouter.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validationHandler(getProductSchema, 'params'),
   validationHandler(updateProductSchema),
   async (req, res, next) => {
@@ -71,10 +78,15 @@ productsRouter.patch(
   },
 );
 
-productsRouter.delete('/:id', validationHandler(getProductSchema, 'params'), async (req, res) => {
-  const { id } = req.params;
-  const deletedProduct = await productsService.delete(id);
-  res.json(deletedProduct);
-});
+productsRouter.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  validationHandler(getProductSchema, 'params'),
+  async (req, res) => {
+    const { id } = req.params;
+    const deletedProduct = await productsService.delete(id);
+    res.json(deletedProduct);
+  },
+);
 
 export default productsRouter;
