@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import passport from 'passport';
 import CategoriesService from '../services/categories.service';
+import { roleCheckHandler } from '../middlewares/auth.handler';
 import validationHandler from '../middlewares/validation.handler';
 import {
   createCategorySchema,
   getCategorySchema,
   updateCategorySchema,
 } from '../schemas/category.schema';
+import { ROLE } from '../db/models/user.model';
 
 const categoriesRouter = Router();
 const categoriesService = new CategoriesService();
@@ -24,10 +26,8 @@ categoriesRouter.get(
   '/:id',
   validationHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
-    const { id } = req.params;
-
     try {
-      const user = await categoriesService.findOne(+id);
+      const user = await categoriesService.findOne(+req.params.id);
       res.json(user);
     } catch (error) {
       next(error);
@@ -38,12 +38,11 @@ categoriesRouter.get(
 categoriesRouter.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(createCategorySchema),
   async (req, res, next) => {
-    const body = req.body;
-
     try {
-      const newCategory = await categoriesService.create(body);
+      const newCategory = await categoriesService.create(req.body);
       res.json(newCategory);
     } catch (error) {
       next(error);
@@ -54,16 +53,12 @@ categoriesRouter.post(
 categoriesRouter.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getCategorySchema, 'params'),
   validationHandler(updateCategorySchema),
   async (req, res, next) => {
-    const {
-      body,
-      params: { id },
-    } = req;
-
     try {
-      const updatedCategory = await categoriesService.update(+id, body);
+      const updatedCategory = await categoriesService.update(+req.params.id, req.body);
       res.json(updatedCategory);
     } catch (error) {
       next(error);
@@ -74,12 +69,11 @@ categoriesRouter.patch(
 categoriesRouter.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
-    const { id } = req.params;
-
     try {
-      const deletedCategory = await categoriesService.delete(+id);
+      const deletedCategory = await categoriesService.delete(+req.params.id);
       res.json(deletedCategory);
     } catch (error) {
       next(error);

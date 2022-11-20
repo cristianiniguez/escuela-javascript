@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import ProductsService, { QueryProductsDTO } from '../services/products.service';
+import { roleCheckHandler } from '../middlewares/auth.handler';
 import validationHandler from '../middlewares/validation.handler';
 import {
   createProductSchema,
@@ -8,6 +9,7 @@ import {
   queryProductsSchema,
   updateProductSchema,
 } from '../schemas/product.schema';
+import { ROLE } from '../db/models/user.model';
 
 const productsRouter = Router();
 const productsService = new ProductsService();
@@ -34,8 +36,7 @@ productsRouter.get(
   validationHandler(getProductSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const product = await productsService.findOne(id);
+      const product = await productsService.findOne(+req.params.id);
       res.json(product);
     } catch (error) {
       next(error);
@@ -46,11 +47,11 @@ productsRouter.get(
 productsRouter.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(createProductSchema),
   async (req, res, next) => {
     try {
-      const body = req.body;
-      const newProduct = await productsService.create(body);
+      const newProduct = await productsService.create(req.body);
       res.json(newProduct);
     } catch (error) {
       next(error);
@@ -61,16 +62,12 @@ productsRouter.post(
 productsRouter.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getProductSchema, 'params'),
   validationHandler(updateProductSchema),
   async (req, res, next) => {
-    const {
-      body,
-      params: { id },
-    } = req;
-
     try {
-      const updatedProduct = await productsService.update(id, body);
+      const updatedProduct = await productsService.update(+req.params.id, req.body);
       res.json(updatedProduct);
     } catch (error) {
       next(error);
@@ -81,10 +78,10 @@ productsRouter.patch(
 productsRouter.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getProductSchema, 'params'),
   async (req, res) => {
-    const { id } = req.params;
-    const deletedProduct = await productsService.delete(id);
+    const deletedProduct = await productsService.delete(+req.params.id);
     res.json(deletedProduct);
   },
 );

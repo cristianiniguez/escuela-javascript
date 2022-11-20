@@ -1,12 +1,12 @@
 import boom from '@hapi/boom';
-import { User } from '../db/models/user.model';
+import { ROLE, User } from '../db/models/user.model';
 import _ from 'lodash';
 import { hashPassword } from '../utils';
 
 type CreateUserDTO = {
   email: string;
   password: string;
-  role: string;
+  role: ROLE;
 };
 
 type UpdateUserDTO = Partial<CreateUserDTO>;

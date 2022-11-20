@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import OrdersService from '../services/orders.service';
+import { roleCheckHandler } from '../middlewares/auth.handler';
 import validationHandler from '../middlewares/validation.handler';
 import {
   addOrderItemSchema,
@@ -8,6 +9,7 @@ import {
   getOrderSchema,
   updateOrderSchema,
 } from '../schemas/order.schema';
+import { ROLE } from '../db/models/user.model';
 
 const ordersRouter = Router();
 const ordersService = new OrdersService();
@@ -23,8 +25,7 @@ ordersRouter.get('/', async (req, res, next) => {
 
 ordersRouter.get('/:id', validationHandler(getOrderSchema, 'params'), async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const order = await ordersService.findOne(+id);
+    const order = await ordersService.findOne(+req.params.id);
     res.json(order);
   } catch (error) {
     next(error);
@@ -34,6 +35,7 @@ ordersRouter.get('/:id', validationHandler(getOrderSchema, 'params'), async (req
 ordersRouter.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(createOrderSchema),
   async (req, res, next) => {
     try {
@@ -48,6 +50,7 @@ ordersRouter.post(
 ordersRouter.post(
   '/add-item',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(addOrderItemSchema),
   async (req, res, next) => {
     try {
@@ -62,16 +65,12 @@ ordersRouter.post(
 ordersRouter.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getOrderSchema, 'params'),
   validationHandler(updateOrderSchema),
   async (req, res, next) => {
-    const {
-      body,
-      params: { id },
-    } = req;
-
     try {
-      const updatedOrder = await ordersService.update(+id, body);
+      const updatedOrder = await ordersService.update(+req.params.id, req.body);
       res.json(updatedOrder);
     } catch (error) {
       next(error);
@@ -82,12 +81,11 @@ ordersRouter.patch(
 ordersRouter.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
-    const { id } = req.params;
-
     try {
-      const deletedOrder = await ordersService.delete(+id);
+      const deletedOrder = await ordersService.delete(+req.params.id);
       res.json(deletedOrder);
     } catch (error) {
       next(error);

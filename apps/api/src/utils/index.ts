@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import { ROLE } from '../db/models/user.model';
 
-export type JWTPayload = { sub: number; role: string };
+export type JWTPayload = { sub: number; role: ROLE };
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
 

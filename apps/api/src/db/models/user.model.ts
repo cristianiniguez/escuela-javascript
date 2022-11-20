@@ -40,11 +40,16 @@ export const UserSchema: ModelAttributes<User> = {
   },
 };
 
+export enum ROLE {
+  CUSTOMER = 'customer',
+  ADMIN = 'admin',
+}
+
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
   declare email: string;
   declare password: string;
-  declare role: CreationOptional<string>;
+  declare role: CreationOptional<ROLE>;
   declare createdAt: CreationOptional<string>;
 
   static associate(models: Sequelize['models']) {

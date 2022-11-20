@@ -48,19 +48,19 @@ class ProductsService {
     return Product.findAll(findOptions);
   }
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     const product = await Product.findByPk(id);
     if (!product) throw boom.notFound(`Product with id ${id} not found`);
     return product;
   }
 
-  async update(id: string, data: UpdateProductDTO) {
+  async update(id: number, data: UpdateProductDTO) {
     const product = await Product.findByPk(id);
     if (!product) throw boom.notFound(`Product with id ${id} not found`);
     return product.update(data);
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     const product = await Product.findByPk(id);
     if (!product) throw boom.notFound(`Product with id ${id} not found`);
     await product.destroy();
