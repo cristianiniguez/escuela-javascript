@@ -5,7 +5,7 @@ import UsersService from './users.service';
 import MailService from './mail.service';
 import { ROLE, User } from '../db/models/user.model';
 import config from '../config';
-import { verifyPassword } from '../utils';
+import { hashPassword, verifyPassword } from '../utils';
 
 const usersService = new UsersService();
 const mailService = new MailService();
@@ -40,6 +40,19 @@ class AuthService {
       subject: 'Reset your password',
       html: `<p>Go to <a href="${link}">this link</a> to reset your password.</p>`, // html body
     });
+  }
+
+  public async resetPassword(token: string, password: string) {
+    const payload = jwt.verify(token, config.jwtSecret);
+
+    const userId = payload.sub as string;
+    if (!userId) throw boom.unauthorized();
+
+    const user = await usersService.findOne(+userId);
+    if (user.resetPasswordToken !== token) throw boom.unauthorized();
+
+    const hashedPassword = await hashPassword(password);
+    await usersService.update(user.id, { password: hashedPassword, resetPasswordToken: '' });
   }
 }
 
