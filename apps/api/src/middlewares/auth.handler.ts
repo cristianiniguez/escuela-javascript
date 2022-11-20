@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import boom from '@hapi/boom';
 import config from '../config';
-import { JWTPayload } from '../utils';
 import { ROLE } from '../db/models/user.model';
+import { JWTPayload } from '../services/auth.service';
 
 export const authHandler: RequestHandler = (req, res, next) => {
   const apiKey = req.headers.api;

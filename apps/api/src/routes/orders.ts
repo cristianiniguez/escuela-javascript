@@ -3,7 +3,7 @@ import passport from 'passport';
 import OrdersService from '../services/orders.service';
 import validationHandler from '../middlewares/validation.handler';
 import { addOrderItemSchema, getOrderSchema } from '../schemas/order.schema';
-import { JWTPayload } from '../utils';
+import { JWTPayload } from '../services/auth.service';
 
 const ordersRouter = Router();
 const ordersService = new OrdersService();

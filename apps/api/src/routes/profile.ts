@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
+import { JWTPayload } from '../services/auth.service';
 import OrdersService from '../services/orders.service';
-import { JWTPayload } from '../utils';
 
 const profileRouter = Router();
 const ordersService = new OrdersService();

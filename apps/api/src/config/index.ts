@@ -36,6 +36,10 @@ const config = {
   port: process.env.PORT || 3000,
   db: getDbConfig(),
   jwtSecret: getConfig('JWT_SECRET'),
+  mail: {
+    user: getConfig('MAIL_USER'),
+    pass: getConfig('MAIL_PASS'),
+  },
 };
 
 export const isProd = () => config.env === 'production';
