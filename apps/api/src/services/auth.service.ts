@@ -31,11 +31,14 @@ class AuthService {
     const user = await usersService.findByEmail(email);
     if (!user) throw boom.notFound(`User not found`);
 
+    const token = jwt.sign({ sub: user.id }, config.jwtSecret, { expiresIn: '15min' });
+    const link = `${config.ui.url}/reset-password?token=${token}`;
+    await usersService.update(user.id, { resetPasswordToken: token });
+
     await mailService.sendMail({
       to: user.email,
-      subject: 'This is a new mail ✔', // Subject line
-      text: 'This is a new mail world?', // plain text body
-      html: '<b>This is a new mail world?</b>', // html body
+      subject: 'Reset your password',
+      html: `<p>Go to <a href="${link}">this link</a> to reset your password.</p>`, // html body
     });
   }
 }

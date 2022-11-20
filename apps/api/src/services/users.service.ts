@@ -9,7 +9,9 @@ type CreateUserDTO = {
   role: ROLE;
 };
 
-type UpdateUserDTO = Partial<CreateUserDTO>;
+type UpdateUserDTO = Partial<CreateUserDTO> & {
+  resetPasswordToken?: string;
+};
 
 class UsersService {
   async create(data: CreateUserDTO) {

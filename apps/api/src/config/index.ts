@@ -40,6 +40,9 @@ const config = {
     user: getConfig('MAIL_USER'),
     pass: getConfig('MAIL_PASS'),
   },
+  ui: {
+    url: getConfig('UI_HOST_URL'),
+  },
 };
 
 export const isProd = () => config.env === 'production';

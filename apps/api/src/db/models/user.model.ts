@@ -11,7 +11,7 @@ import {
 
 export const USER_TABLE = 'users';
 
-export const UserSchema: ModelAttributes<User> = {
+export const UserSchema: ModelAttributes<User, InferAttributes<User>> = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -38,6 +38,11 @@ export const UserSchema: ModelAttributes<User> = {
     field: 'created_at',
     defaultValue: NOW,
   },
+  resetPasswordToken: {
+    allowNull: true,
+    type: DataTypes.STRING,
+    field: 'reset_password_token',
+  },
 };
 
 export enum ROLE {
@@ -51,6 +56,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   declare password: string;
   declare role: CreationOptional<ROLE>;
   declare createdAt: CreationOptional<string>;
+  declare resetPasswordToken: CreationOptional<string>;
 
   static associate(models: Sequelize['models']) {
     User.hasOne(models.Customer, { as: 'customer', foreignKey: 'userId' });
