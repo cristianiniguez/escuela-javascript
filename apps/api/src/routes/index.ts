@@ -6,6 +6,7 @@ import customersRouter from './customers';
 import productsRouter from './products';
 import categoriesRouter from './categories';
 import ordersRouter from './orders';
+import profileRouter from './profile';
 
 function apiRouter(app: Express) {
   const router = Router();
@@ -15,6 +16,7 @@ function apiRouter(app: Express) {
   router.use('/products', productsRouter);
   router.use('/categories', categoriesRouter);
   router.use('/orders', ordersRouter);
+  router.use('/profile', profileRouter);
 
   app.use('/api/v1', router);
 }

@@ -1,12 +1,7 @@
 import boom from '@hapi/boom';
+import { Customer } from '../db/models/customer.model';
 import { OrderItem } from '../db/models/order-item.model';
 import { Order } from '../db/models/order.model';
-
-type CreateOrderDTO = {
-  customerId: number;
-};
-
-type UpdateOrderDTO = Partial<CreateOrderDTO>;
 
 type AddOrderItemDTO = {
   orderId: number;
@@ -15,12 +10,21 @@ type AddOrderItemDTO = {
 };
 
 class OrdersService {
-  create(data: CreateOrderDTO) {
-    return Order.create(data);
+  async create(userId: number) {
+    const customer = await Customer.findOne({ where: { userId } });
+    if (!customer) throw boom.notFound(`Customer with user id ${userId} not found`);
+    return Order.create({ customerId: customer.id });
   }
 
   find() {
     return Order.findAll();
+  }
+
+  findByUser(userId: number) {
+    return Order.findAll({
+      include: [{ association: 'customer', include: ['user'] }],
+      where: { '$customer.user.id$': userId },
+    });
   }
 
   async findOne(id: number) {
@@ -33,12 +37,6 @@ class OrdersService {
 
   addOrderItem(data: AddOrderItemDTO) {
     return OrderItem.create(data);
-  }
-
-  async update(id: number, data: UpdateOrderDTO) {
-    const order = await Order.findByPk(id);
-    if (!order) throw boom.notFound(`Order with id ${id} not found`);
-    return order.update(data);
   }
 
   async delete(id: number) {

@@ -1,15 +1,9 @@
 import { Router } from 'express';
 import passport from 'passport';
 import OrdersService from '../services/orders.service';
-import { roleCheckHandler } from '../middlewares/auth.handler';
 import validationHandler from '../middlewares/validation.handler';
-import {
-  addOrderItemSchema,
-  createOrderSchema,
-  getOrderSchema,
-  updateOrderSchema,
-} from '../schemas/order.schema';
-import { ROLE } from '../db/models/user.model';
+import { addOrderItemSchema, getOrderSchema } from '../schemas/order.schema';
+import { JWTPayload } from '../utils';
 
 const ordersRouter = Router();
 const ordersService = new OrdersService();
@@ -32,25 +26,20 @@ ordersRouter.get('/:id', validationHandler(getOrderSchema, 'params'), async (req
   }
 });
 
-ordersRouter.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  roleCheckHandler(ROLE.ADMIN),
-  validationHandler(createOrderSchema),
-  async (req, res, next) => {
-    try {
-      const newOrder = await ordersService.create(req.body);
-      res.json(newOrder);
-    } catch (error) {
-      next(error);
-    }
-  },
-);
+ordersRouter.post('/', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+  const user = req.user as JWTPayload;
+
+  try {
+    const newOrder = await ordersService.create(user.sub);
+    res.json(newOrder);
+  } catch (error) {
+    next(error);
+  }
+});
 
 ordersRouter.post(
   '/add-item',
   passport.authenticate('jwt', { session: false }),
-  roleCheckHandler(ROLE.ADMIN),
   validationHandler(addOrderItemSchema),
   async (req, res, next) => {
     try {
@@ -62,26 +51,9 @@ ordersRouter.post(
   },
 );
 
-ordersRouter.patch(
-  '/:id',
-  passport.authenticate('jwt', { session: false }),
-  roleCheckHandler(ROLE.ADMIN),
-  validationHandler(getOrderSchema, 'params'),
-  validationHandler(updateOrderSchema),
-  async (req, res, next) => {
-    try {
-      const updatedOrder = await ordersService.update(+req.params.id, req.body);
-      res.json(updatedOrder);
-    } catch (error) {
-      next(error);
-    }
-  },
-);
-
 ordersRouter.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  roleCheckHandler(ROLE.ADMIN),
   validationHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
