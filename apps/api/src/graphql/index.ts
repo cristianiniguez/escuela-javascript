@@ -1,30 +1,8 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { GraphQLFieldResolver as Resolver } from 'graphql';
+import { loadFiles } from '@graphql-tools/load-files';
 import { Express } from 'express';
-
-const typeDefs = `
-  type Query {
-    hello: String!
-    getPerson(name: String!, age: Int!): String!
-    getInt(int: Int!): Int!
-    getFloat(float: Float!): Float!
-    getString(string: String!): String!
-    getBoolean(boolean: Boolean!): Boolean!
-    getID(id: ID!): ID!
-    getNumbers(numbers: [Int!]!): [Int!]!
-    getProduct: Product
-  }
-
-  type Product {
-    id: ID!
-    name: String!
-    price: Float!
-    description: String!
-    image: String!
-    createdAt: String!
-  }
-`;
 
 const getPerson: Resolver<unknown, unknown, { name: string; age: number }, string> = (_, args) =>
   `Hello, my name is ${args.name}, and I'm ${args.age} year(s) old.`;
@@ -61,7 +39,7 @@ const resolvers = {
 
 const useGraphQL = async (app: Express) => {
   const server = new ApolloServer({
-    typeDefs,
+    typeDefs: await loadFiles('./src/**/*.graphql'),
     resolvers,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
   });
