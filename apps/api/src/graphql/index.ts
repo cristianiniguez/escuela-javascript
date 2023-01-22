@@ -13,6 +13,16 @@ const typeDefs = `
     getBoolean(boolean: Boolean!): Boolean!
     getID(id: ID!): ID!
     getNumbers(numbers: [Int!]!): [Int!]!
+    getProduct: Product
+  }
+
+  type Product {
+    id: ID!
+    name: String!
+    price: Float!
+    description: String!
+    image: String!
+    createdAt: String!
   }
 `;
 
@@ -38,6 +48,14 @@ const resolvers = {
     getBoolean,
     getID,
     getNumbers,
+    getProduct: () => ({
+      id: 1,
+      name: 'Shoes Adidas',
+      price: 108.2,
+      description: 'Shoes made in China',
+      image: 'https://shoes.com/adidas.jpeg',
+      createdAt: new Date().toISOString(),
+    }),
   },
 };
 
