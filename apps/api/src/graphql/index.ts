@@ -12,6 +12,7 @@ const typeDefs = `
     getString(string: String!): String!
     getBoolean(boolean: Boolean!): Boolean!
     getID(id: ID!): ID!
+    getNumbers(numbers: [Int!]!): [Int!]!
   }
 `;
 
@@ -24,6 +25,8 @@ const getString: Resolver<unknown, unknown, { string: string }, string> = (_, ar
 const getBoolean: Resolver<unknown, unknown, { boolean: boolean }, boolean> = (_, args) =>
   args.boolean;
 const getID: Resolver<unknown, unknown, { id: string }, string> = (_, args) => args.id;
+const getNumbers: Resolver<unknown, unknown, { numbers: number[] }, number[]> = (_, args) =>
+  args.numbers;
 
 const resolvers = {
   Query: {
@@ -34,6 +37,7 @@ const resolvers = {
     getString,
     getBoolean,
     getID,
+    getNumbers,
   },
 };
 
