@@ -7,7 +7,10 @@ type Query {
   getBoolean(boolean: Boolean!): Boolean!
   getID(id: ID!): ID!
   getNumbers(numbers: [Int!]!): [Int!]!
-  getProduct: Product!
+
+  # Products
+  products: [Product!]!
+  product(id: ID!): Product
 }
 
 type Product {
