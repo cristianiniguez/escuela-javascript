@@ -2,7 +2,7 @@ import boom from '@hapi/boom';
 import { FindOptions, InferAttributes, Op, WhereAttributeHashValue } from 'sequelize';
 import { Product } from '../db/models/product.model';
 
-type CreateProductDTO = {
+export type CreateProductDTO = {
   name: string;
   description: string;
   price: number;
