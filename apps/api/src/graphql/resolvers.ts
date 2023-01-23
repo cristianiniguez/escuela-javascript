@@ -1,5 +1,11 @@
 import { GraphQLFieldResolver as Resolver } from 'graphql';
-import { addProduct, getProduct, getProducts } from './product.resolvers';
+import {
+  addProduct,
+  deleteProduct,
+  getProduct,
+  getProducts,
+  updateProduct,
+} from './product.resolvers';
 
 const getPerson: Resolver<unknown, unknown, { name: string; age: number }, string> = (_, args) =>
   `Hello, my name is ${args.name}, and I'm ${args.age} year(s) old.`;
@@ -30,6 +36,8 @@ const resolvers = {
   },
   Mutation: {
     addProduct,
+    updateProduct,
+    deleteProduct,
   },
 };
 

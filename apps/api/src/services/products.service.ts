@@ -10,7 +10,7 @@ export type CreateProductDTO = {
   categoryId: number;
 };
 
-type UpdateProductDTO = Partial<CreateProductDTO>;
+export type UpdateProductDTO = Partial<CreateProductDTO>;
 
 export type QueryProductsDTO = {
   limit?: number;

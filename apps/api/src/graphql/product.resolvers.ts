@@ -1,5 +1,5 @@
 import { GraphQLFieldResolver as Resolver } from 'graphql';
-import ProductsService, { CreateProductDTO } from '../services/products.service';
+import ProductsService, { CreateProductDTO, UpdateProductDTO } from '../services/products.service';
 
 const productsService = new ProductsService();
 
@@ -10,3 +10,11 @@ export const getProduct: Resolver<unknown, unknown, { id: string }> = (_, { id }
 
 export const addProduct: Resolver<unknown, unknown, { input: CreateProductDTO }> = (_, { input }) =>
   productsService.create(input);
+
+export const updateProduct: Resolver<unknown, unknown, { id: string; input: UpdateProductDTO }> = (
+  _,
+  { id, input },
+) => productsService.update(+id, input);
+
+export const deleteProduct: Resolver<unknown, unknown, { id: string }> = (_, { id }) =>
+  productsService.delete(+id);
