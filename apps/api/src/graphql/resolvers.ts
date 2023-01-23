@@ -1,4 +1,5 @@
 import { GraphQLFieldResolver as Resolver } from 'graphql';
+import { login } from './auth.resolvers';
 import {
   addProduct,
   deleteProduct,
@@ -35,6 +36,10 @@ const resolvers = {
     product: getProduct,
   },
   Mutation: {
+    // Auth
+    login,
+
+    // Products
     addProduct,
     updateProduct,
     deleteProduct,

@@ -14,9 +14,23 @@ type Query {
 }
 
 type Mutation {
+  login(email: String!, password: String!): LoginResponse
+
   addProduct(input: CreateProductInput!): Product!
   updateProduct(id: ID!, input: UpdateProductInput!): Product!
   deleteProduct(id: ID!): ID!
+}
+
+type LoginResponse {
+  accessToken: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  role: String!
+  createdAt: String!
 }
 
 type Product {
