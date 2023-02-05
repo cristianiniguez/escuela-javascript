@@ -7,6 +7,7 @@ import {
   getProducts,
   updateProduct,
 } from './product.resolvers';
+import { addCategory } from './category.resolvers';
 
 const getPerson: Resolver<unknown, unknown, { name: string; age: number }, string> = (_, args) =>
   `Hello, my name is ${args.name}, and I'm ${args.age} year(s) old.`;
@@ -43,6 +44,9 @@ const resolvers = {
     addProduct,
     updateProduct,
     deleteProduct,
+
+    // Categories
+    addCategory,
   },
 };
 

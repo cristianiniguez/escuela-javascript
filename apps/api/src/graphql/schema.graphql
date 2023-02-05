@@ -16,9 +16,13 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): LoginResponse
 
+  # Products
   addProduct(input: CreateProductInput!): Product!
   updateProduct(id: ID!, input: UpdateProductInput!): Product!
   deleteProduct(id: ID!): ID!
+
+  # Categories
+  addCategory(input: CreateCategoryInput!): Category!
 }
 
 type LoginResponse {
@@ -66,4 +70,9 @@ input UpdateProductInput {
   image: String
   description: String
   categoryId: ID
+}
+
+input CreateCategoryInput {
+  name: String!
+  image: String!
 }

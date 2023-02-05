@@ -1,12 +1,12 @@
 import boom from '@hapi/boom';
 import { Category } from '../db/models/category.model';
 
-type CreateCategoryDTO = {
+export type CreateCategoryDTO = {
   name: string;
   image: string;
 };
 
-type UpdateCategoryDTO = Partial<CreateCategoryDTO>;
+export type UpdateCategoryDTO = Partial<CreateCategoryDTO>;
 
 class CategoriesService {
   create(data: CreateCategoryDTO) {
