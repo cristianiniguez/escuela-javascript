@@ -8,6 +8,9 @@ import {
   updateProduct,
 } from './product.resolvers';
 import { addCategory } from './category.resolvers';
+import { RegularExpression } from 'graphql-scalars';
+
+const CategoryName = new RegularExpression('CategoryName', /^\w{3,8}$/);
 
 const getPerson: Resolver<unknown, unknown, { name: string; age: number }, string> = (_, args) =>
   `Hello, my name is ${args.name}, and I'm ${args.age} year(s) old.`;
@@ -48,6 +51,7 @@ const resolvers = {
     // Categories
     addCategory,
   },
+  CategoryName,
 };
 
 export default resolvers;

@@ -14,7 +14,7 @@ type Query {
 }
 
 type Mutation {
-  login(email: String!, password: String!): LoginResponse
+  login(email: EmailAddress!, password: String!): LoginResponse
 
   # Products
   addProduct(input: CreateProductInput!): Product!
@@ -73,6 +73,8 @@ input UpdateProductInput {
 }
 
 input CreateCategoryInput {
-  name: String!
-  image: String!
+  name: CategoryName!
+  image: URL!
 }
+
+scalar CategoryName

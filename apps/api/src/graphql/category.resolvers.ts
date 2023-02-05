@@ -9,10 +9,10 @@ const categoriesService = new CategoriesService();
 export const addCategory: Resolver<
   unknown,
   Context<Express.User>,
-  { input: CreateCategoryDTO }
+  { input: Omit<CreateCategoryDTO, 'image'> & { image: URL } }
 > = async (_, { input }, context) => {
   const user = await checkJWT(context);
   checkRoles(user as User, [ROLE.ADMIN]);
 
-  return categoriesService.create(input);
+  return categoriesService.create({ ...input, image: input.image.href });
 };
