@@ -5,9 +5,10 @@ import {
   deleteProduct,
   getProduct,
   getProducts,
+  getProductsByCategory,
   updateProduct,
 } from './product.resolvers';
-import { addCategory } from './category.resolvers';
+import { addCategory, getCategory } from './category.resolvers';
 import { RegularExpression } from 'graphql-scalars';
 
 const CategoryName = new RegularExpression('CategoryName', /^\w{3,8}$/);
@@ -38,6 +39,9 @@ const resolvers = {
     // Products
     products: getProducts,
     product: getProduct,
+
+    // Categories
+    category: getCategory,
   },
   Mutation: {
     // Auth
@@ -50,6 +54,9 @@ const resolvers = {
 
     // Categories
     addCategory,
+  },
+  Category: {
+    products: getProductsByCategory,
   },
   CategoryName,
 };

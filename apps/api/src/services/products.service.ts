@@ -48,6 +48,10 @@ class ProductsService {
     return Product.findAll(findOptions);
   }
 
+  findByCategory(categoryId: number) {
+    return Product.findAll({ where: { categoryId } });
+  }
+
   async findOne(id: number) {
     const product = await Product.findByPk(id);
     if (!product) throw boom.notFound(`Product with id ${id} not found`);

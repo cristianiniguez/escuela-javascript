@@ -16,3 +16,6 @@ export const addCategory: Resolver<
 
   return categoriesService.create({ ...input, image: input.image.href });
 };
+
+export const getCategory: Resolver<unknown, unknown, { id: string }> = (_, { id }) =>
+  categoriesService.findOne(+id);
