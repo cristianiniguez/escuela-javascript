@@ -1,7 +1,7 @@
 import boom from '@hapi/boom';
 import _ from 'lodash';
 import { Customer } from '../db/models/customer.model';
-import { hashPassword } from '../utils';
+import { hashPassword } from '../utils/auth';
 
 type CreateCustomerDTO = {
   name: string;

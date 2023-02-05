@@ -5,7 +5,7 @@ import UsersService from './users.service';
 import MailService from './mail.service';
 import { ROLE, User } from '../db/models/user.model';
 import config from '../config';
-import { hashPassword, verifyPassword } from '../utils';
+import { hashPassword, verifyPassword } from '../utils/auth';
 
 const usersService = new UsersService();
 const mailService = new MailService();

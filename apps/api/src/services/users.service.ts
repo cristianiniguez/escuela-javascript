@@ -1,7 +1,7 @@
 import boom from '@hapi/boom';
 import { ROLE, User } from '../db/models/user.model';
 import _ from 'lodash';
-import { hashPassword } from '../utils';
+import { hashPassword } from '../utils/auth';
 
 type CreateUserDTO = {
   email: string;
